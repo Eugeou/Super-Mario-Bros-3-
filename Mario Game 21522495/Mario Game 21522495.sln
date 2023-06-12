@@ -5,6 +5,8 @@ VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mario Game 21522495", "Mario Game 21522495\Mario Game 21522495.vcxproj", "{6859AFD6-818A-4E05-AA96-40017169DBAB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05-SceneManager", "05-SceneManager\05-SceneManager.vcxproj", "{30B52332-21EE-43B1-91BF-B2494C04C34F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{6859AFD6-818A-4E05-AA96-40017169DBAB}.Release|x64.Build.0 = Release|x64
 		{6859AFD6-818A-4E05-AA96-40017169DBAB}.Release|x86.ActiveCfg = Release|Win32
 		{6859AFD6-818A-4E05-AA96-40017169DBAB}.Release|x86.Build.0 = Release|Win32
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Debug|x64.ActiveCfg = Debug|x64
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Debug|x64.Build.0 = Debug|x64
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Debug|x86.ActiveCfg = Debug|Win32
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Debug|x86.Build.0 = Debug|Win32
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Release|x64.ActiveCfg = Release|x64
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Release|x64.Build.0 = Release|x64
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Release|x86.ActiveCfg = Release|Win32
+		{30B52332-21EE-43B1-91BF-B2494C04C34F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
