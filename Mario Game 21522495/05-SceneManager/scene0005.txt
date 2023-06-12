@@ -5,6 +5,7 @@ coin.txt
 cloud.txt
 brick.txt
 Goomba.txt
+ground.txt 
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -15,6 +16,19 @@ Goomba.txt
 0	120	10
 
 #COIN
+4	100	180
+4	120	180
+4	140	180
+4	160	180
+4	180	180
+
+4	100	140
+4	120	140
+4	140	140
+4	160	140
+4	180	140
+
+
 4	100	120
 4	120	120
 4	140	120
@@ -43,8 +57,9 @@ Goomba.txt
 
 
 #Platform
-5 	100	180	16	15	32	51000	52000	53000
+5 	100	180	16	15	32	61000	62000	63000
 5	140	140	16	15	26	51000	52000	53000
+
 
 #Portal 
 50	200	160	216	180	1
