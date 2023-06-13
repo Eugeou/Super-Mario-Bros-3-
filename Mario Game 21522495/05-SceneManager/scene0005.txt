@@ -7,6 +7,7 @@ brick.txt
 Goomba.txt
 ground.txt 
 bigtrees.txt
+smalltrees.txt
 
 #
 [OBJECTS]
@@ -14,8 +15,17 @@ bigtrees.txt
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
 
+
+
 # MARIO
+5	120	144	10	10	1	71000	72000	73000
+5	240	179	10	10	1	81000	82000	83000
+5	255	179	10	10	1	81000	82000	83000
+5	270	179	10	10	1	81000	82000	83000
 0	20	10
+
+#Goomba
+2	400	10
 
 #COIN
 
@@ -28,7 +38,7 @@ bigtrees.txt
 
 #Platform
 5 	0	195	16	15	100	61000	62000	63000
-5	120	144	10	10	1	71000	72000	73000
+
 
 
 #Portal 
