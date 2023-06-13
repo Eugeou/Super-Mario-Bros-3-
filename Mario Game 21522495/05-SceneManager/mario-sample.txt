@@ -20,3 +20,4 @@ height	240
 30	textures\tileset.png
 40	textures\masks.png
 50	textures\map.png
+60	textures\smb3s.png

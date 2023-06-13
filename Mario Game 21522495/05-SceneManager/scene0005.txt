@@ -8,6 +8,7 @@ Goomba.txt
 ground.txt 
 bigtrees.txt
 smalltrees.txt
+pinkbox.txt
 
 #
 [OBJECTS]
@@ -17,11 +18,14 @@ smalltrees.txt
 
 
 
-# MARIO
+#OBJJECTS
 5	120	144	10	10	1	71000	72000	73000
 5	240	179	10	10	1	81000	82000	83000
 5	255	179	10	10	1	81000	82000	83000
 5	270	179	10	10	1	81000	82000	83000
+5	350	163	50	49	1	91000	92000	93000
+
+#MARIO
 0	20	10
 
 #Goomba
@@ -29,11 +33,11 @@ smalltrees.txt
 
 #COIN
 
-# BRICK
+#BRICK
 
 1	80	80
 
-#
+
 
 
 #Platform
@@ -42,5 +46,5 @@ smalltrees.txt
 
 
 #Portal 
-50	200	120	216	140	1
+50	200	80	216	100	1
 
