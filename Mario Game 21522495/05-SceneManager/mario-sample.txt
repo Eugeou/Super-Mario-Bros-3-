@@ -21,3 +21,4 @@ height	240
 40	textures\masks.png
 50	textures\map.png
 60	textures\smb3s.png
+70	textures\map1-1.png
