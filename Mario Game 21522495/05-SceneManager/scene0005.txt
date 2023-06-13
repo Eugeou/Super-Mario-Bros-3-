@@ -10,6 +10,7 @@ bigtrees.txt
 smalltrees.txt
 pinkbox.txt
 bluebox1.txt
+longgreenpipe.txt
 
 #
 [OBJECTS]
@@ -26,6 +27,8 @@ bluebox1.txt
 5	270	179	10	10	1	81000	82000	83000
 5	350	163	50	49	1	91000	92000	93000
 5	382.5	147	53	80	1	101000	102000	103000
+5	460	163	30	49	1	111000	112000	113000
+
 
 #MARIO
 0	20	10
