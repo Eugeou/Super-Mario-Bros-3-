@@ -8,6 +8,7 @@
 #include "Animations.h"
 #include "PlayScene.h"
 
+
 CGame * CGame::__instance = NULL;
 
 /*
@@ -19,6 +20,7 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 {
 	this->hWnd = hWnd;
 	this->hInstance = hInstance;
+	
 
 	// retrieve client area width & height so that we can create backbuffer height & width accordingly 
 	RECT r;

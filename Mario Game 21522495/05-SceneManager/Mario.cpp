@@ -362,3 +362,19 @@ void CMario::SetLevel(int l)
 	level = l;
 }
 
+float CMario::GetPosition()
+{
+	return x;
+	return y;
+}
+
+float CMario::GetX()
+{
+	return x;
+}
+
+float CMario::GetY()
+{
+	return y;
+}
+

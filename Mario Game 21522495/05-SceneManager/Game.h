@@ -14,6 +14,7 @@ using namespace std;
 #include "Scene.h"
 
 
+
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
@@ -56,10 +57,11 @@ class CGame
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene;
 	int next_scene = -1;
+	
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
-
+	
 public:
 	// Init DirectX, Sprite Handler
 	void Init(HWND hWnd, HINSTANCE hInstance);

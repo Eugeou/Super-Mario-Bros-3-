@@ -28,7 +28,8 @@ venusplant.txt
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas
 # See OBJECT_TYPE constants in AssetIDs.h
 
-
+#VENUS PLANT
+8	460	150
 
 #OBJJECTS
 5	120	144	10	10	1	71000	72000	73000
@@ -74,9 +75,6 @@ venusplant.txt
 #TRANSPARENTBLOCK
 6	727	179
 
-7	0	140
-#VENUS PLANT
-8	460	140
 
 
 #Platform
