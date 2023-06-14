@@ -22,3 +22,4 @@ height	240
 50	textures\map.png
 60	textures\smb3s.png
 70	textures\map1-1.png
+80	textures\fire-balls.png

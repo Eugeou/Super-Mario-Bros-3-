@@ -19,6 +19,7 @@ ground2.txt
 transparentblock.txt
 smileclouds.txt
 smilecloud.txt
+fireball.txt
 
 #
 [OBJECTS]
@@ -69,7 +70,7 @@ smilecloud.txt
 
 1	80	80
 6	727	179
-
+7	0	140
 
 
 
