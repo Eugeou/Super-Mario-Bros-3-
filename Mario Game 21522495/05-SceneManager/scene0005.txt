@@ -20,6 +20,7 @@ transparentblock.txt
 smileclouds.txt
 smilecloud.txt
 fireball.txt
+venusplant.txt
 
 #
 [OBJECTS]
@@ -69,9 +70,13 @@ fireball.txt
 #BRICK
 
 1	80	80
-6	727	179
-7	0	140
 
+#TRANSPARENTBLOCK
+6	727	179
+
+7	0	140
+#VENUS PLANT
+8	460	140
 
 
 #Platform

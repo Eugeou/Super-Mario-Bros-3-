@@ -12,6 +12,7 @@
 #include "TransparentBlock.h"
 #include "FireBall.h"
 #include "SampleKeyEventHandler.h"
+#include "VenusPlant.h"
 
 using namespace std;
 
@@ -122,6 +123,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_TRANSPARENTBLOCK: obj = new CTransparentBlock(x, y); break;
 	case OBJECT_TYPE_FIREBALL: obj = new CFireBall(x, y); break;
+	case OBJECT_TYPE_VENUSPLANT: obj = new CVenusPlant(x, y); break;
 	case OBJECT_TYPE_PLATFORM:
 	{
 

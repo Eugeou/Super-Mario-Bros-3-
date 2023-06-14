@@ -167,6 +167,7 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TransparentBlock.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="VenusPlant.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TransparentBlock.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="VenusPlant.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

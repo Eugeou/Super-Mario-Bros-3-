@@ -13,6 +13,7 @@ using namespace std;
 #include "KeyEventHandler.h"
 #include "Scene.h"
 
+
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
@@ -112,6 +113,7 @@ public:
 	void InitiateSwitchScene(int scene_id);
 
 	void _ParseSection_TEXTURES(string line);
+
 
 
 	~CGame();
