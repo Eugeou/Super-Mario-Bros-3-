@@ -76,6 +76,12 @@ public:
 
 	// Is this object collide with other object at certain direction ( like ColorBox )
 	virtual int IsDirectionColliable(float nx, float ny) { return 1; }
+
+	float GetX() { return x; }
+	float GetY() { return y; }
+	void SetY(float f) { y = f; }
+	void SetX(float f) { x = f; }
+
 	void SetIsDeleted(bool b) {
 		isDeleted = b;
 	}
