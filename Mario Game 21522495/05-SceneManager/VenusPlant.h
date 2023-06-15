@@ -9,9 +9,9 @@
 #define VENUSPLANT_BBOX_HEIGHT 40
 //#define VENUSPLANT_BBOX_HEIGHT_DIE 7
 
-#define TIME_OUT_PIPE 5000
+#define TIME_OUT_PIPE 3000
 #define TIME_SHOOT 100
-#define TIME_DOWN_PIPE 3000
+#define TIME_DOWN_PIPE 2000
 
 
 #define VENUSPLANT_STATE_HEAD_UP 100
@@ -49,7 +49,7 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return 0; };
 	virtual int IsBlocking() { return 0; }
 	virtual int IsEnemy() { return 1; }
 	virtual void OnNoCollision(DWORD dt);

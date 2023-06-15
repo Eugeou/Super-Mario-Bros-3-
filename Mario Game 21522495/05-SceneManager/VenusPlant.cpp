@@ -12,6 +12,7 @@ CVenusPlant::CVenusPlant(float x, float y) : CGameObject(x, y)
 	this->ay = 0;
 	StartY = y;
 	MinY = StartY - VENUSPLANT_BBOX_HEIGHT;
+	isUpping = true;
 	SetState(VENUSPLANT_STATE_HEAD_UP);
 }
 
@@ -29,8 +30,7 @@ void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	LPGAME game = CGame::GetInstance();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	float Mx;
-	Mx = mario->GetX();
+	
 
 	CGameObject::Update(dt, coObjects);
 	if (mario->GetState() == MARIO_STATE_DIE) return;
@@ -51,32 +51,32 @@ void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else
 			{
 				
-					if (!isShoot)
-					{
-						if (GetTickCount64() - time_shoot < TIME_SHOOT) {
-							isShoot = true;
-							bool isTop = false, isLeft = false;
-							if (PositionXWithMario() == 1) { isTop = true; }
-							if (PositionYWithMario() == 1) { isLeft = true; }
-							if (isTop && isLeft) //Mario is standing on the top of the left of venus plant
-							{
-								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
-								scene->AddObject(fire);
-							}
-							else if (isTop && !isLeft) {
-								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
-								scene->AddObject(fire);
-							}
-							else if (!isTop && !isLeft) {
-								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
-								scene->AddObject(fire);
-							}
-							else if (!isTop && isLeft) {
-								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
-								scene->AddObject(fire);
-							}
+				if (!isShoot)
+				{
+					if (GetTickCount64() - time_shoot < TIME_SHOOT) {
+						isShoot = true;
+						bool isTop = false, isLeft = false;
+						if (PositionXWithMario() == 1) { isTop = true; }
+						if (PositionYWithMario() == 1) { isLeft = true; }
+						if (isTop && isLeft) //Mario is standing on the top of the left of venus plant
+						{
+							CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+							scene->AddObject(fire);
+						}
+						else if (isTop && !isLeft) {
+							CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+							scene->AddObject(fire);
+						}
+						else if (!isTop && !isLeft) {
+							CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+							scene->AddObject(fire);
+						}
+						else if (!isTop && isLeft) {
+							CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+							scene->AddObject(fire);
 						}
 					}
+				}
 				
 			}
 		}
@@ -141,15 +141,22 @@ void CVenusPlant::Render()
 	int aniId = -1;
 
 	if (PositionXWithMario() == 1 && PositionYWithMario() == -1)
+	{
 		if (!isShoot) aniId = ID_ANI_VENUSPLANT_LEFT_UNDER_NOT_SHOOT;
 		else aniId = ID_ANI_VENUSPLANT_LEFT_UNDER_SHOOT;
+	}
 	else if (PositionXWithMario() == 1 && PositionYWithMario() == 1)
+	{
 		if (!isShoot) aniId = ID_ANI_VENUSPLANT_LEFT_TOP_NOT_SHOOT;
 		else aniId = ID_ANI_VENUSPLANT_LEFT_TOP_SHOOT;
+	}
 	else if (PositionXWithMario() == -1 && PositionYWithMario() == 1)
+	{
 		if (!isShoot) aniId = ID_ANI_VENUSPLANT_RIGHT_TOP_NOT_SHOOT;
 		else aniId = ID_ANI_VENUSPLANT_RIGHT_TOP_SHOOT;
-	else {
+	}
+	else 
+	{
 		if (!isShoot) aniId = ID_ANI_VENUSPLANT_RIGHT_UNDER_NOT_SHOOT;
 		else aniId = ID_ANI_VENUSPLANT_RIGHT_UNDER_SHOOT;
 	}

@@ -15,12 +15,12 @@ CFireBall::CFireBall(float x, float y, bool Up, bool Right) :CGameObject(x, y)
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (Up)
 	{
-		y = y - VENUSPLANT_BBOX_HEIGHT / 2;
+		y = y - VENUSPLANT_BBOX_HEIGHT ;
 		vy = -BULLET_SPEED_Y;
 	}
 	else
 	{
-		y = y + VENUSPLANT_BBOX_HEIGHT / 2;
+		y = y + VENUSPLANT_BBOX_HEIGHT ;
 		vy = BULLET_SPEED_Y;
 	}
 	if (Right)

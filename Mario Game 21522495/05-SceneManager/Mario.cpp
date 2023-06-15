@@ -7,7 +7,9 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
+#include "FireBall.h"
 
+#include "PlayScene.h"
 #include "Collision.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -54,6 +56,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
+	else if (dynamic_cast<CFireBall*>(e->obj))
+		OnCollisionWithFireBall(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -100,6 +104,27 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+}
+
+void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e) {
+	if (untouchable) return;
+	CFireBall* fireball = dynamic_cast<CFireBall*>(e->obj);
+	fireball->SetIsDeleted(true);
+
+	if (untouchable == 0)
+	{
+		if (level > MARIO_LEVEL_SMALL)
+		{
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+		else
+		{
+			DebugOut(L">>> Mario DIE >>> \n");
+			SetState(MARIO_STATE_DIE);
+
+		}
+	}	
 }
 
 //
@@ -377,4 +402,3 @@ float CMario::GetY()
 {
 	return y;
 }
-
