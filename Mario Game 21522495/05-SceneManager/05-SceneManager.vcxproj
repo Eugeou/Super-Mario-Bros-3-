@@ -176,6 +176,7 @@
     <ClInclude Include="AnimationFrame.h" />
     <ClInclude Include="Animations.h" />
     <ClInclude Include="AssetIDs.h" />
+    <ClInclude Include="BluePButton.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="BrickColor.h" />
     <ClInclude Include="Coin.h" />
