@@ -2,6 +2,7 @@
 #include "Mario.h"
 #include "PlayScene.h"
 #include "Coin.h"
+#include "BrickColor.h"
 
 CQuestionBrick::CQuestionBrick(float x, float y, int model) :CGameObject(x, y)
 {
@@ -57,4 +58,32 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CQuestionBrick::Render()
+{
+	int aniId;
+	if (model == QUESTION_BRICK_MUSHROOM_GREEN || model == QUESTION_BRICK_BUTTON) {
+		aniId = ID_ANI_BRICK_COLOR;
+	}
+	else aniId = ID_ANI_QUESTION_BRICK;
+
+	if (isEmpty) {
+		aniId = ID_ANI_QUESTION_BRICK_EMPTY;
+	}
+
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+	//RenderBoundingBox();
+}
+
+void CQuestionBrick::SetState(int state)
+{
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case QUESTION_BRICK_STATE_UP:
+		vy = -QUESTION_BRICK_SPEED_UP;
+		break;
+
+	}
 }
