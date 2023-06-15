@@ -68,3 +68,43 @@ void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (dynamic_cast<CPlatform*>(e->obj))
 		OnCollisionWithPlatForm(e);
 }
+
+void CLeaf::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
+{
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (platform->IsBlocking()) {}
+	else if (e->ny < 0) {
+		SetY(platform->GetY() - LEAF_BBOX_HEIGHT);
+		isOnPlatForm = true;
+	}
+}
+
+void CLeaf::Render()
+{
+	CAnimations* animations = CAnimations::GetInstance();
+	if (vx <= 0) animations->Get(ID_ANI_LEAF_LEFT)->Render(x, y);
+	else if (vx > 0) animations->Get(ID_ANI_LEAF_RIGHT)->Render(x, y);
+
+	//RenderBoundingBox();
+}
+
+void CLeaf::GetBoundingBox(float& l, float& t, float& r, float& b)
+{
+	l = x - LEAF_BBOX_WIDTH / 2;
+	t = y - LEAF_BBOX_HEIGHT / 2;
+	r = l + LEAF_BBOX_WIDTH;
+	b = t + LEAF_BBOX_HEIGHT;
+}
+
+void CLeaf::SetState(int state)
+{
+	switch (state)
+	{
+	case LEAF_STATE_FALL:
+		ax += ADJUST_AX_WHEN_FALL;
+		break;
+	}
+
+
+	CGameObject::SetState(state);
+}
