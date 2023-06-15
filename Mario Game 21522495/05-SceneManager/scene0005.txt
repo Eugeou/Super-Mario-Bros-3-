@@ -24,6 +24,7 @@ venusplant.txt
 mushroom.txt
 brickquestion.txt
 brickcolor.txt
+leaf.txt
 
 #
 [OBJECTS]

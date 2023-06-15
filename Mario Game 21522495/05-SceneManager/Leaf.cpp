@@ -47,3 +47,24 @@ void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
+
+void CLeaf::OnNoCollision(DWORD dt)
+{
+	x += vx * dt;
+	y += vy * dt;
+};
+
+void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
+	if (dynamic_cast<CLeaf*>(e->obj)) return;
+
+	if (e->ny != 0)
+	{
+		isOnPlatForm = true;
+		vy = 0;
+		vx = 0;
+	}
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatForm(e);
+}
