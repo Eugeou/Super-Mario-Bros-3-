@@ -22,3 +22,28 @@ CLeaf::CLeaf(float x, float y, int state) {
 	this->ax = 0;
 	this->state = state;
 }
+
+void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	
+	if (isOnPlatForm) {
+		vy = 0;
+		ay = 0;
+	}
+	else {
+		if (vy < MAX_VY) {
+			vy += ay * dt;
+		}
+		else vy = ay * dt;
+		if (vy > 0) {
+			if (vx <= ADJUST_MAX_VX) {
+				vx += ax * dt;
+			}
+			else vx = -vx;
+		}
+	}
+	//	DebugOut(L"[Vy cua la cay] %f\n", vy);
+
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
