@@ -36,3 +36,14 @@ public:
 	virtual void SetState(int state);
 };
 
+void CBrickColor::SetState(int state) {
+	switch (state) {
+	case BRICK_STATE_DELETE:
+		isBreak = true;
+		break;
+	case BRICK_STATE_GOLD:
+		isGold = true;
+		break;
+	}
+	CGameObject::SetState(state);
+}
