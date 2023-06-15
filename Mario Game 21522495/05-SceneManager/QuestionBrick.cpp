@@ -3,7 +3,7 @@
 #include "PlayScene.h"
 #include "Coin.h"
 
-CBrickQuestion::CBrickQuestion(float x, float y, int model) :CGameObject(x, y)
+CQuestionBrick::CQuestionBrick(float x, float y, int model) :CGameObject(x, y)
 {
 	this->model = model;
 	this->ay = 0;
@@ -12,7 +12,7 @@ CBrickQuestion::CBrickQuestion(float x, float y, int model) :CGameObject(x, y)
 	this->startX = x;
 }
 
-void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CQuestionBrick::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x - QUESTION_BRICK_BBOX_WIDTH / 2;
 	top = y - QUESTION_BRICK_BBOX_HEIGHT / 2;
@@ -20,12 +20,12 @@ void CBrickQuestion::GetBoundingBox(float& left, float& top, float& right, float
 	bottom = top + QUESTION_BRICK_BBOX_HEIGHT;
 }
 
-void CBrickQuestion::OnNoCollision(DWORD dt)
+void CQuestionBrick::OnNoCollision(DWORD dt)
 {
 	y += vy * dt;
 };
 
-void CBrickQuestion::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (x != startX) {
 		x = startX;

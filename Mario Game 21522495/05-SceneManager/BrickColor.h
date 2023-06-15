@@ -5,6 +5,8 @@
 #include"Game.h"
 #include"PlayScene.h"
 #include "GameObject.h"
+#include "Coin.h"
+#include "BluePButton.h"
 
 
 #define ID_ANI_BRICK_COLOR 10001
@@ -36,14 +38,3 @@ public:
 	virtual void SetState(int state);
 };
 
-void CBrickColor::SetState(int state) {
-	switch (state) {
-	case BRICK_STATE_DELETE:
-		isBreak = true;
-		break;
-	case BRICK_STATE_GOLD:
-		isGold = true;
-		break;
-	}
-	CGameObject::SetState(state);
-}

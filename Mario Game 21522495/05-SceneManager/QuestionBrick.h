@@ -21,7 +21,7 @@
 
 #define ADJUST_UP_DOWN 13
 
-class CBrickQuestion : public CGameObject
+class CQuestionBrick : public CGameObject
 {
 protected:
 	float ay;
@@ -42,7 +42,7 @@ protected:
 
 public:
 
-	CBrickQuestion(float x, float y, int model);
+	CQuestionBrick(float x, float y, int model);
 	virtual void SetState(int state);
 	float GetMinY() { return minY; }
 	BOOLEAN GetIsUnbox() { return isUnbox; }
