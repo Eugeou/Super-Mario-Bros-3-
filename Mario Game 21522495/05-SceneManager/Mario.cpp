@@ -12,6 +12,9 @@
 
 #include "PlayScene.h"
 #include "Collision.h"
+#include "QuestionBrick.h"
+#include "MushRoom.h"
+#include "BrickColor.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -61,6 +64,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireBall(e);
 	else if (dynamic_cast<CVenusPlant*>(e->obj))
 		OnCollisionWithVenusPlant(e);
+	else if (dynamic_cast<CMushRoom*>(e->obj))
+		OnCollisionWithMushRoom(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -96,6 +101,8 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		}
 	}
 }
+
+//////// ONCOLLISION WITH GAME OBJECTS /////////////
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
@@ -152,6 +159,56 @@ void CMario::OnCollisionWithVenusPlant(LPCOLLISIONEVENT e) {
 		}
 	}
 }
+
+void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
+{
+	CMushRoom* mushroom = dynamic_cast<CMushRoom*>(e->obj);
+	if (mushroom->GetModel() == MUSHROOM_RED) {
+		if (!mushroom->IsDeleted()) {
+			score += 1000;
+		}
+		if (GetLevel() == MARIO_LEVEL_SMALL)
+		{
+			isLower = false;
+			SetLevel(MARIO_LEVEL_BIG);
+		}
+	}
+	mushroom->Delete();
+
+}
+
+
+
+void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
+	if (level == MARIO_LEVEL_SMALL) {
+		//SetY(platform->GetY() - 15);
+		if (gameobject->GetY() - GetY() < (MARIO_SMALL_BBOX_HEIGHT + 4))
+		{
+			SetY(gameobject->GetY() - MARIO_SMALL_BBOX_HEIGHT - 2);
+			vy = 0;
+			isOnPlatform = true;
+		}
+	}
+	else {
+		if (!isSitting) {
+			if (gameobject->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT)
+			{
+				SetY(gameobject->GetY() - MARIO_BIG_BBOX_HEIGHT + 4);
+				vy = 0;
+				isOnPlatform = true;
+			}
+		}
+		else {
+			if (gameobject->GetY() - GetY() < MARIO_BIG_BBOX_HEIGHT / 2 + 4)
+			{
+				SetY(gameobject->GetY() - MARIO_BIG_BBOX_HEIGHT / 2 - 4);
+				vy = 0;
+				isOnPlatform = true;
+			}
+		}
+	}
+}
+
 
 //
 // Get animation ID for small Mario
