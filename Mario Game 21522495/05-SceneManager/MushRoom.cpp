@@ -47,4 +47,28 @@ void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
+void CMushRoom::OnNoCollision(DWORD dt)
+{
+	x += vx * dt;
+	y += vy * dt;
+};
 
+void CMushRoom::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform()) return;
+	if (!e->obj->IsPlayer()) {
+		if (e->ny != 0)
+		{
+			vy = 0;
+		}
+		else if (e->nx != 0)
+		{
+			vx = -vx;
+		}
+	}
+
+	if (dynamic_cast<CMushRoom*>(e->obj)) {}
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatForm(e);
+
+}
