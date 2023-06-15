@@ -170,5 +170,8 @@
     <ClInclude Include="QuestionBrick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BrickColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
