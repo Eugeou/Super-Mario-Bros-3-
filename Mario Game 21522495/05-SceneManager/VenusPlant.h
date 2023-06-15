@@ -3,7 +3,7 @@
 
 
 #define VENUSPLANT_SPEED 0.03f
-#define VENUSPLANT_SHOOT_RED 1
+
 
 #define VENUSPLANT_BBOX_WIDTH 20
 #define VENUSPLANT_BBOX_HEIGHT 40
@@ -14,18 +14,19 @@
 #define TIME_DOWN_PIPE 3000
 
 
-#define VENUSPLANT_STATE_HEAD_UP_LEFT 100
-#define VENUSPLANT_STATE_HEAD_DOWN_LEFT 200
-#define VENUSPLANT_STATE_HEAD_UP_RIGHT 300
-#define VENUSPLANT_STATE_HEAD_DOWN_RIGHT 400
-#define VENUSPLANT_STATE_WAIT 500
+#define VENUSPLANT_STATE_HEAD_UP 100
+#define VENUSPLANT_STATE_HEAD_DOWN 200
+#define VENUSPLANT_STATE_DIE 300
 
-
-#define ID_ANI_VENUSPLANT_HEAD_UP_LEFT 7000
-#define ID_ANI_VENUSPLANT_HEAD_DOWN_LEFT 7001
-#define ID_ANI_VENUSPLANT_HEAD_UP_RIGHT 7002
-#define ID_ANI_VENUSPLANT_HEAD_DOWN_RIGHT 7003
-const float VENUS_WAIT_TIME = 1000; // Thời gian dừng lại khi lên đến vị trí cao nhất (đơn vị: milliseconds)
+//To avoid misunderstanding,I use UNDER means Look down and TOP means Look up
+#define ID_ANI_VENUSPLANT_LEFT_UNDER_NOT_SHOOT	301 //Venus look down on the left and keep mounth shut
+#define ID_ANI_VENUSPLANT_LEFT_UNDER_SHOOT 302 
+#define ID_ANI_VENUSPLANT_LEFT_TOP_NOT_SHOOT 303 //Venus look up......
+#define ID_ANI_VENUSPLANT_LEFT_TOP_SHOOT 304
+#define ID_ANI_VENUSPLANT_RIGHT_UNDER_NOT_SHOOT	305 //Venus look down on the right and keep mounth shut
+#define ID_ANI_VENUSPLANT_RIGHT_UNDER_SHOOT 306
+#define ID_ANI_VENUSPLANT_RIGHT_TOP_NOT_SHOOT 307 //Venus look up......
+#define ID_ANI_VENUSPLANT_RIGHT_TOP_SHOOT 308
 
 
 
@@ -42,7 +43,6 @@ protected:
 	ULONGLONG time_shoot;
 	ULONGLONG time_down_pipe;
 	bool isUpping, isDowning;
-	int Model;
 	
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

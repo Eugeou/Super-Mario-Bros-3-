@@ -4,7 +4,7 @@
 #include "PlayScene.h"
 #
 
-const float VENUS_HEIGHT = 32 * 3;
+//const float VENUS_HEIGHT = 32 * 3;
 
 CVenusPlant::CVenusPlant(float x, float y) : CGameObject(x, y)
 {
@@ -12,18 +12,16 @@ CVenusPlant::CVenusPlant(float x, float y) : CGameObject(x, y)
 	this->ay = 0;
 	StartY = y;
 	MinY = StartY - VENUSPLANT_BBOX_HEIGHT;
-	SetState(VENUSPLANT_STATE_HEAD_UP_LEFT);
+	SetState(VENUSPLANT_STATE_HEAD_UP);
 }
 
 void CVenusPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (Model == VENUSPLANT_SHOOT_RED)
-	{
-		left = x - VENUSPLANT_BBOX_WIDTH;
-		top = y - VENUSPLANT_BBOX_HEIGHT;
-		right = x + VENUSPLANT_BBOX_WIDTH;
-		bottom = y + VENUSPLANT_BBOX_HEIGHT;
-	}
+	if (state == VENUSPLANT_STATE_DIE) return;
+	left = x - VENUSPLANT_BBOX_WIDTH;
+	top = y - VENUSPLANT_BBOX_HEIGHT;
+	right = x + VENUSPLANT_BBOX_WIDTH;
+	bottom = y + VENUSPLANT_BBOX_HEIGHT;
 }
 
 void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -38,40 +36,70 @@ void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 	if (isUpping)
 	{
-		if (y > MinY && x > Mx)
+		if (y > MinY)
 		{
-			SetState(VENUSPLANT_STATE_HEAD_UP_LEFT);
+			vy = -VENUSPLANT_SPEED;
 		}
-	}
-	else
-	{
-		time_shoot = GetTickCount64();
-		vy = 0;
-		y = MinY;
-		if (GetTickCount64() - time_out_pipe > TIME_OUT_PIPE)
-			SetState(VENUSPLANT_STATE_HEAD_DOWN_LEFT);
+
 		else
 		{
-			if (Model == VENUSPLANT_SHOOT_RED)
+			time_shoot = GetTickCount64();
+			vy = 0;
+			y = MinY;
+			if (GetTickCount64() - time_out_pipe > TIME_OUT_PIPE)
+				SetState(VENUSPLANT_STATE_HEAD_DOWN);
+			else
 			{
-				if (!isShoot)
-				{
-					if (GetTickCount64() - time_shoot < TIME_SHOOT) {
-						isShoot = true;
-						bool isTop = false, isLeft = false;
-						if (PositionXWithMario() == 1) { isTop = true; }
-						if (PositionYWithMario() == 1) { isLeft = true; }
-						if (isTop && isLeft) //Mario is stading on the top of the left of venus plant
-						{
-							CFireBall* fire = new CFireBall()
+				
+					if (!isShoot)
+					{
+						if (GetTickCount64() - time_shoot < TIME_SHOOT) {
+							isShoot = true;
+							bool isTop = false, isLeft = false;
+							if (PositionXWithMario() == 1) { isTop = true; }
+							if (PositionYWithMario() == 1) { isLeft = true; }
+							if (isTop && isLeft) //Mario is standing on the top of the left of venus plant
+							{
+								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+								scene->AddObject(fire);
+							}
+							else if (isTop && !isLeft) {
+								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+								scene->AddObject(fire);
+							}
+							else if (!isTop && !isLeft) {
+								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+								scene->AddObject(fire);
+							}
+							else if (!isTop && isLeft) {
+								CFireBall* fire = new CFireBall(x, y, isLeft, !isTop);
+								scene->AddObject(fire);
+							}
 						}
-
-
 					}
-				}
+				
 			}
 		}
 	}
+	else if (isDowning) {
+		
+		if ((y < StartY + 2))
+		{
+			vy = VENUSPLANT_SPEED;
+		}
+		else
+		{
+			vy = 0;
+			y = StartY + 2;
+			if (GetTickCount64() - time_down_pipe > TIME_DOWN_PIPE) {
+				SetState(VENUSPLANT_STATE_HEAD_UP);
+			}
+		}
+	}
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+
 
 
 	/*else if (y < 125 && x > Mx)
@@ -86,8 +114,7 @@ void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	else if (state == VENUSPLANT_STATE_HEAD_DOWN_LEFT || state ==VENUSPLANT_STATE_HEAD_DOWN_RIGHT)
 		vy = VENUSPLANT_SPEED;*/
 
-	y += vy * dt;
-
+	//y += vy * dt;
 	
 }
 
@@ -111,50 +138,51 @@ int CVenusPlant::PositionYWithMario() {
 
 void CVenusPlant::Render()
 {
-	int ani = ID_ANI_VENUSPLANT_HEAD_UP_LEFT;
+	int aniId = -1;
 
-	if (state == VENUSPLANT_STATE_HEAD_DOWN_LEFT)
-		ani = ID_ANI_VENUSPLANT_HEAD_DOWN_LEFT;
-
-	else if (state == VENUSPLANT_STATE_HEAD_UP_LEFT)
-		ani = ID_ANI_VENUSPLANT_HEAD_UP_LEFT;
-
-	else if (state == VENUSPLANT_STATE_HEAD_DOWN_RIGHT)
-		ani = ID_ANI_VENUSPLANT_HEAD_DOWN_RIGHT;
-
-	else if (state == VENUSPLANT_STATE_HEAD_UP_RIGHT)
-		ani = ID_ANI_VENUSPLANT_HEAD_UP_RIGHT;
-	CAnimations::GetInstance()->Get(ani)->Render(x, y);
+	if (PositionXWithMario() == 1 && PositionYWithMario() == -1)
+		if (!isShoot) aniId = ID_ANI_VENUSPLANT_LEFT_UNDER_NOT_SHOOT;
+		else aniId = ID_ANI_VENUSPLANT_LEFT_UNDER_SHOOT;
+	else if (PositionXWithMario() == 1 && PositionYWithMario() == 1)
+		if (!isShoot) aniId = ID_ANI_VENUSPLANT_LEFT_TOP_NOT_SHOOT;
+		else aniId = ID_ANI_VENUSPLANT_LEFT_TOP_SHOOT;
+	else if (PositionXWithMario() == -1 && PositionYWithMario() == 1)
+		if (!isShoot) aniId = ID_ANI_VENUSPLANT_RIGHT_TOP_NOT_SHOOT;
+		else aniId = ID_ANI_VENUSPLANT_RIGHT_TOP_SHOOT;
+	else {
+		if (!isShoot) aniId = ID_ANI_VENUSPLANT_RIGHT_UNDER_NOT_SHOOT;
+		else aniId = ID_ANI_VENUSPLANT_RIGHT_UNDER_SHOOT;
+	}
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
 
 void CVenusPlant::SetState(int state)
 {
-	
-	CGameObject::SetState(state);
 	switch (state)
 	{
-	case VENUSPLANT_STATE_HEAD_DOWN_LEFT:
-		vy = VENUSPLANT_SPEED;
+	case VENUSPLANT_STATE_HEAD_UP:
 		
+		//vy = -VENUSPLANT_SPEED;
+		isUpping = true;
+		isDowning = false;
+		isShoot = false;
+		time_out_pipe = GetTickCount64();
+		time_down_pipe = 0;
 		break;
-	case VENUSPLANT_STATE_HEAD_UP_LEFT:
-		
-		vy = -VENUSPLANT_SPEED;
-		
+	case VENUSPLANT_STATE_HEAD_DOWN:
+		//vy = VENUSPLANT_SPEED;
+		isShoot = false;
+		isUpping = false;
+		isDowning = true;
+		time_down_pipe = GetTickCount64();
+		time_out_pipe = 0;
 		break;
-	case VENUSPLANT_STATE_HEAD_DOWN_RIGHT:
-		vy = VENUSPLANT_SPEED;
-		
-		
-		break;
-	case VENUSPLANT_STATE_HEAD_UP_RIGHT:
-		vy = -VENUSPLANT_SPEED;
-		break;
-	case VENUSPLANT_STATE_WAIT:
-		vy = 0;
+	case VENUSPLANT_STATE_DIE:
+		isDeleted = true;
 		break;
 	}
+	CGameObject::SetState(state);
 }
 
 void CVenusPlant::OnNoCollision(DWORD dt)

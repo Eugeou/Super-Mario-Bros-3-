@@ -26,6 +26,7 @@ protected:
 	void LoadAssets(LPCWSTR assetFile);
 	
 public: 
+	void AddObject(LPGAMEOBJECT object);
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load();

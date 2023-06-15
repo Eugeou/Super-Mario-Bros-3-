@@ -62,7 +62,7 @@ void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e)
 void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (mario->GetIsChanging() || mario->GetState() == MARIO_STATE_DIE) return;
+	if (mario->GetState() == MARIO_STATE_DIE) return;
 	if (GetTickCount64() - start_del > TIME_FIREBALL_DELETE) {
 		isDeleted = true;
 	}

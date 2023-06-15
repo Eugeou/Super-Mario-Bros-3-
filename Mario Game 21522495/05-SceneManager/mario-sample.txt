@@ -24,3 +24,4 @@ height	240
 70	textures\map1-1.png
 80	textures\fire-balls.png
 90	textures\allsprites.png
+100	textures\enemies_3.png

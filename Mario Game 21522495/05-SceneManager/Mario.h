@@ -120,7 +120,6 @@ class CMario : public CGameObject
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
-	bool isChanging;
 
 public:
 	CMario(float x, float y) : CGameObject(x, y)
@@ -157,6 +156,5 @@ public:
 	float GetPosition();
 	float GetX();
 	float GetY();
-	bool GetIsChanging() { return isChanging; }
 	
 };

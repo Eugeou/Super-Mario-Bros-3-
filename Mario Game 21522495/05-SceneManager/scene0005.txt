@@ -29,7 +29,7 @@ venusplant.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 #VENUS PLANT
-8	460	150
+8	460	160
 
 #OBJJECTS
 5	120	144	10	10	1	71000	72000	73000
