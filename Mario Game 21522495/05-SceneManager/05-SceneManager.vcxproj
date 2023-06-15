@@ -187,6 +187,7 @@
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlayScene.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="QuestionBrick.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />

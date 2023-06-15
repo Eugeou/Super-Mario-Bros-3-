@@ -73,6 +73,7 @@ venusplant.txt
 
 #TRANSPARENTBLOCK
 6	727	179
+6	460	179
 
 
 
