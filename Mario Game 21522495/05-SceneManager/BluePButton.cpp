@@ -12,7 +12,8 @@ void CBluePButton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		vy = ay * dt;
 	}
 	else vy = 0; //Nếu nút đã được thu thập(isCollected), thì vị trí y của nút sẽ được đặt lại để nút nằm ở phía trên vị trí ban đầu(firstYPosition - BUTTON_BBOX_HEIGHT / 2 - 2).
-	if (isCollected) {
+	if (isCollected)
+	{
 		y = firstYPosition - BUTTON_BBOX_HEIGHT / 2 - 2;
 	}
 
