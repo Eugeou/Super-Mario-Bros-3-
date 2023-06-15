@@ -1,5 +1,8 @@
 ﻿#include "VenusPlant.h"
 #include "FireBall.h"
+#include "Mario.h"
+#include "PlayScene.h"
+#
 
 const float VENUS_HEIGHT = 32 * 3;
 
@@ -7,7 +10,8 @@ CVenusPlant::CVenusPlant(float x, float y) : CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = 0;
-	SetState(VENUSPLANT_STATE_HEAD_UP);
+	wait = 0;
+	SetState(VENUSPLANT_STATE_HEAD_UP_LEFT);
 }
 
 void CVenusPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -20,16 +24,32 @@ void CVenusPlant::GetBoundingBox(float& left, float& top, float& right, float& b
 
 void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
-	if (y < 125)
-		SetState(VENUSPLANT_STATE_HEAD_DOWN);
-	else if (y > 170)
-		SetState(VENUSPLANT_STATE_HEAD_UP);
+	LPGAME game = CGame::GetInstance();
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	float Mx;
+	Mx = mario->GetX();
 
-	if (state == VENUSPLANT_STATE_HEAD_UP)
+	CGameObject::Update(dt, coObjects);
+	if (y == 125)
+	{
+		SetState(VENUSPLANT_STATE_WAIT);
+		
+	}
+	else if (y < 125 && x > Mx && (GetTickCount64() - wait > VENUSPLANT_WAIT_TIME))
+	{
+		SetState(VENUSPLANT_STATE_HEAD_DOWN_LEFT);
+	}
+	else if (y > 170 && x > Mx)
+		SetState(VENUSPLANT_STATE_HEAD_UP_LEFT);
+	else if (y < 125 && x < Mx)
+		SetState(VENUSPLANT_STATE_HEAD_DOWN_RIGHT);
+	else if (y > 170 && x < Mx)
+		SetState(VENUSPLANT_STATE_HEAD_UP_RIGHT);
+
+	/*if (state == VENUSPLANT_STATE_HEAD_UP_LEFT || state == VENUSPLANT_STATE_HEAD_UP_RIGHT)
 		vy = -VENUSPLANT_SPEED;
-	else if (state == VENUSPLANT_STATE_HEAD_DOWN)
-		vy = VENUSPLANT_SPEED;
+	else if (state == VENUSPLANT_STATE_HEAD_DOWN_LEFT || state ==VENUSPLANT_STATE_HEAD_DOWN_RIGHT)
+		vy = VENUSPLANT_SPEED;*/
 
 	y += vy * dt;
 
@@ -45,6 +65,8 @@ void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+	
+
 	// Nếu Venus Plant không có trong scene, thì mới tạo một viên đạn mới và thêm vào danh sách
 	if (!isVenusPlantInScene)
 	{
@@ -55,18 +77,50 @@ void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CVenusPlant::Render()
 {
-	int ani = ID_ANI_VENUSPLANT_HEAD_UP;
-	if (state == VENUSPLANT_STATE_HEAD_DOWN)
-		ani = ID_ANI_VENUSPLANT_HEAD_DOWN;
-	else if (state == VENUSPLANT_STATE_HEAD_UP)
-		ani = ID_ANI_VENUSPLANT_HEAD_UP;
+	int ani = ID_ANI_VENUSPLANT_HEAD_UP_LEFT;
 
+	if (state == VENUSPLANT_STATE_HEAD_DOWN_LEFT)
+		ani = ID_ANI_VENUSPLANT_HEAD_DOWN_LEFT;
+
+	else if (state == VENUSPLANT_STATE_HEAD_UP_LEFT)
+		ani = ID_ANI_VENUSPLANT_HEAD_UP_LEFT;
+
+	else if (state == VENUSPLANT_STATE_HEAD_DOWN_RIGHT)
+		ani = ID_ANI_VENUSPLANT_HEAD_DOWN_RIGHT;
+
+	else if (state == VENUSPLANT_STATE_HEAD_UP_RIGHT)
+		ani = ID_ANI_VENUSPLANT_HEAD_UP_RIGHT;
 	CAnimations::GetInstance()->Get(ani)->Render(x, y);
 }
 
 void CVenusPlant::SetState(int state)
 {
+	wait = 0;
 	CGameObject::SetState(state);
+	switch (state)
+	{
+	case VENUSPLANT_STATE_HEAD_DOWN_LEFT:
+		vy = VENUSPLANT_SPEED;
+		
+		break;
+	case VENUSPLANT_STATE_HEAD_UP_LEFT:
+		
+		vy = -VENUSPLANT_SPEED;
+		
+		break;
+	case VENUSPLANT_STATE_HEAD_DOWN_RIGHT:
+		vy = VENUSPLANT_SPEED;
+		
+		
+		break;
+	case VENUSPLANT_STATE_HEAD_UP_RIGHT:
+		vy = -VENUSPLANT_SPEED;
+		break;
+	case VENUSPLANT_STATE_WAIT:
+		vy = 0;
+		wait = GetTickCount64();
+		break;
+	}
 }
 
 void CVenusPlant::OnNoCollision(DWORD dt)
