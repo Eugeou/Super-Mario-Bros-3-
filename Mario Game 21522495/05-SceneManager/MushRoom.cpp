@@ -17,6 +17,7 @@ CMushRoom::CMushRoom(float x, float y) :CGameObject(x, y)
 	startY = y;
 	SetState(MUSHROOM_STATE_OUTSIDE);
 }
+
 CMushRoom::CMushRoom(float x, float y, int model) :CGameObject(x, y)
 {
 	this->ax = 0;
@@ -26,3 +27,24 @@ CMushRoom::CMushRoom(float x, float y, int model) :CGameObject(x, y)
 	startY = y;
 	SetState(MUSHROOM_STATE_OUTSIDE);
 }
+
+void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (state == MUSHROOM_STATE_WALKING) {
+		vy += ay * dt;
+		vx += ax * dt;
+	}
+	else if (state == MUSHROOM_STATE_OUTSIDE) {
+		if (startY - y < MUSHROOM_BBOX_HEIGHT) {
+			vy = OUT_BRICK;
+			vx = 0;
+		}
+		else SetState(MUSHROOM_STATE_WALKING);
+	}
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+
