@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "Portal.h"
 #include "FireBall.h"
+#include "VenusPlant.h"
 
 #include "PlayScene.h"
 #include "Collision.h"
@@ -58,6 +59,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CFireBall*>(e->obj))
 		OnCollisionWithFireBall(e);
+	else if (dynamic_cast<CVenusPlant*>(e->obj))
+		OnCollisionWithVenusPlant(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -125,6 +128,29 @@ void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e) {
 
 		}
 	}	
+}
+
+void CMario::OnCollisionWithVenusPlant(LPCOLLISIONEVENT e) {
+	CVenusPlant* plant = dynamic_cast<CVenusPlant*>(e->obj);
+	if (untouchable) return;
+
+	else if (untouchable == 0)
+	{
+		if (plant->GetState() != VENUSPLANT_STATE_DIE)
+		{
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+
+			}
+		}
+	}
 }
 
 //
