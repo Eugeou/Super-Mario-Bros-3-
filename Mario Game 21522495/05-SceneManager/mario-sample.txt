@@ -25,3 +25,4 @@ height	240
 80	textures\fire-balls.png
 90	textures\allsprites.png
 100	textures\enemies_3.png
+110	textures\misc_left.png
