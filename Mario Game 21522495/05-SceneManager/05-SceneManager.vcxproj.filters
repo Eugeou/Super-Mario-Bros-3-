@@ -93,6 +93,9 @@
     <ClCompile Include="BluePButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MushRoom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -180,6 +183,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BluePButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MushRoom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
