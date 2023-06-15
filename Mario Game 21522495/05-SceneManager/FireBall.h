@@ -2,7 +2,9 @@
 #include "GameObject.h"
 
 
-#define FIREBALL_FLYING_SPEED 0.05f
+#define BULLET_SPEED_X	0.05f
+#define BULLET_SPEED_Y	0.07f
+#define TIME_FIREBALL_DELETE 4000
 #define FIREBALL_BBOX_WIDTH 6
 #define FIREBALL_BBOX_HEIGHT 6
 
@@ -19,7 +21,7 @@ protected:
 	float ax;
 	float ay;
 
-	//ULONGLONG start;
+	ULONGLONG start_del;
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -32,6 +34,6 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
-	CFireBall(float x, float y);
+	CFireBall(float x, float y, bool Up, bool Right);
 	virtual void SetState(int state);
 };

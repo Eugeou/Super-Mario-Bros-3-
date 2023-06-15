@@ -10,41 +10,76 @@ CVenusPlant::CVenusPlant(float x, float y) : CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = 0;
-	wait = 0;
+	StartY = y;
+	MinY = StartY - VENUSPLANT_BBOX_HEIGHT;
 	SetState(VENUSPLANT_STATE_HEAD_UP_LEFT);
 }
 
 void CVenusPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - VENUSPLANT_BBOX_WIDTH;
-	top = y - VENUSPLANT_BBOX_HEIGHT;
-	right = x + VENUSPLANT_BBOX_WIDTH;
-	bottom = y + VENUSPLANT_BBOX_HEIGHT;
+	if (Model == VENUSPLANT_SHOOT_RED)
+	{
+		left = x - VENUSPLANT_BBOX_WIDTH;
+		top = y - VENUSPLANT_BBOX_HEIGHT;
+		right = x + VENUSPLANT_BBOX_WIDTH;
+		bottom = y + VENUSPLANT_BBOX_HEIGHT;
+	}
 }
 
 void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	LPGAME game = CGame::GetInstance();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	float Mx;
 	Mx = mario->GetX();
 
 	CGameObject::Update(dt, coObjects);
-	if (y == 125)
+	if (mario->GetState() == MARIO_STATE_DIE) return;
+	if (isUpping)
 	{
-		SetState(VENUSPLANT_STATE_WAIT);
-		
+		if (y > MinY && x > Mx)
+		{
+			SetState(VENUSPLANT_STATE_HEAD_UP_LEFT);
+		}
 	}
-	else if (y < 125 && x > Mx && (GetTickCount64() - wait > VENUSPLANT_WAIT_TIME))
+	else
 	{
+		time_shoot = GetTickCount64();
+		vy = 0;
+		y = MinY;
+		if (GetTickCount64() - time_out_pipe > TIME_OUT_PIPE)
+			SetState(VENUSPLANT_STATE_HEAD_DOWN_LEFT);
+		else
+		{
+			if (Model == VENUSPLANT_SHOOT_RED)
+			{
+				if (!isShoot)
+				{
+					if (GetTickCount64() - time_shoot < TIME_SHOOT) {
+						isShoot = true;
+						bool isTop = false, isLeft = false;
+						if (PositionXWithMario() == 1) { isTop = true; }
+						if (PositionYWithMario() == 1) { isLeft = true; }
+						if (isTop && isLeft) //Mario is stading on the top of the left of venus plant
+						{
+							CFireBall* fire = new CFireBall()
+						}
+
+
+					}
+				}
+			}
+		}
+	}
+
+
+	/*else if (y < 125 && x > Mx)
 		SetState(VENUSPLANT_STATE_HEAD_DOWN_LEFT);
-	}
-	else if (y > 170 && x > Mx)
-		SetState(VENUSPLANT_STATE_HEAD_UP_LEFT);
 	else if (y < 125 && x < Mx)
 		SetState(VENUSPLANT_STATE_HEAD_DOWN_RIGHT);
 	else if (y > 170 && x < Mx)
-		SetState(VENUSPLANT_STATE_HEAD_UP_RIGHT);
+		SetState(VENUSPLANT_STATE_HEAD_UP_RIGHT);*/
 
 	/*if (state == VENUSPLANT_STATE_HEAD_UP_LEFT || state == VENUSPLANT_STATE_HEAD_UP_RIGHT)
 		vy = -VENUSPLANT_SPEED;
@@ -53,26 +88,25 @@ void CVenusPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	y += vy * dt;
 
-	// Kiểm tra xem danh sách đối tượng trong scene đã chứa Venus Plant chưa
-	bool isVenusPlantInScene = false;
-	for (size_t i = 0; i < coObjects->size(); i++)
-	{
-		LPGAMEOBJECT obj = coObjects->at(i);
-		if (dynamic_cast<CVenusPlant*>(obj))
-		{
-			isVenusPlantInScene = true;
-			break;
-		}
-	}
-
 	
+}
 
-	// Nếu Venus Plant không có trong scene, thì mới tạo một viên đạn mới và thêm vào danh sách
-	if (!isVenusPlantInScene)
+int CVenusPlant::PositionXWithMario() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetX() < x) //mario left, plant right
 	{
-		LPGAMEOBJECT fireball = new CFireBall(x, y);
-		coObjects->push_back(fireball);
+		return 1;
 	}
+	else return -1;
+}
+
+int CVenusPlant::PositionYWithMario() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetY() < y) //mario top, plant under
+	{
+		return 1;
+	}
+	else return -1;
 }
 
 void CVenusPlant::Render()
@@ -93,9 +127,10 @@ void CVenusPlant::Render()
 	CAnimations::GetInstance()->Get(ani)->Render(x, y);
 }
 
+
 void CVenusPlant::SetState(int state)
 {
-	wait = 0;
+	
 	CGameObject::SetState(state);
 	switch (state)
 	{
@@ -118,7 +153,6 @@ void CVenusPlant::SetState(int state)
 		break;
 	case VENUSPLANT_STATE_WAIT:
 		vy = 0;
-		wait = GetTickCount64();
 		break;
 	}
 }

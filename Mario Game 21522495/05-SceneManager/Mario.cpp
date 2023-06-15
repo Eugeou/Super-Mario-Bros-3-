@@ -12,9 +12,14 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
-
+	if (isChanging) {
+		vx = 0;
+		vy = 0;
+	}
+	else {
+		vy += ay * dt;
+		vx += ax * dt;
+	}
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed

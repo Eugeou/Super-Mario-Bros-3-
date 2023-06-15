@@ -1,21 +1,48 @@
 #include "FireBall.h"
+#include "Mario.h"
+#include "PlayScene.h"
+#include "VenusPlant.h"
 
 
 
-CFireBall::CFireBall(float x, float y) :CGameObject(x, y)
+CFireBall::CFireBall(float x, float y, bool Up, bool Right) :CGameObject(x, y)
 {
+
 	this->ax = 0;
 	this->ay = 0;
 	//start = -1;
 	SetState(FIREBALL_STATE_FYING);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (Up)
+	{
+		y = y - VENUSPLANT_BBOX_HEIGHT / 2;
+		vy = -BULLET_SPEED_Y;
+	}
+	else
+	{
+		y = y + VENUSPLANT_BBOX_HEIGHT / 2;
+		vy = BULLET_SPEED_Y;
+	}
+	if (Right)
+	{
+		x = x + VENUSPLANT_BBOX_WIDTH;
+		vx = BULLET_SPEED_X;
+	}
+	else
+	{
+		x = x - VENUSPLANT_BBOX_WIDTH;
+		vx = -BULLET_SPEED_X;
+	}
+	start_del = GetTickCount64();
+
 }
 
 void CFireBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-		left = x - FIREBALL_BBOX_WIDTH / 2;
-		top = y - FIREBALL_BBOX_HEIGHT / 2;
-		right = left + FIREBALL_BBOX_WIDTH;
-		bottom = top + FIREBALL_BBOX_HEIGHT;
+	left = x;
+	top = y;
+	right = left + FIREBALL_BBOX_WIDTH;
+	bottom = top + FIREBALL_BBOX_HEIGHT;
 	
 }
 
@@ -34,8 +61,11 @@ void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetIsChanging() || mario->GetState() == MARIO_STATE_DIE) return;
+	if (GetTickCount64() - start_del > TIME_FIREBALL_DELETE) {
+		isDeleted = true;
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -56,7 +86,7 @@ void CFireBall::SetState(int state)
 	switch (state)
 	{
 	case FIREBALL_STATE_FYING:
-		vx = FIREBALL_FLYING_SPEED;
+		vx = BULLET_SPEED_X;
 		break;
 	}
 }
