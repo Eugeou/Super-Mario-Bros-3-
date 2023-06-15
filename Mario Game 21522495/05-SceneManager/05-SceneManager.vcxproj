@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="BluePButton.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BrickColor.cpp" />
     <ClCompile Include="Coin.cpp" />
