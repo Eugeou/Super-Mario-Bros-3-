@@ -1,5 +1,4 @@
 #include "MushRoom.h"
-
 #include "Platform.h"
 #include "PlayScene.h"
 #include "Mario.h"

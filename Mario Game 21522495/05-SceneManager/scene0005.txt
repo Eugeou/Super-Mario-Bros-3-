@@ -22,7 +22,7 @@ smilecloud.txt
 fireball.txt
 venusplant.txt
 mushroom.txt
-questionbrick.txt
+brickquestion.txt
 brickcolor.txt
 
 #
@@ -77,8 +77,11 @@ brickcolor.txt
 #TRANSPARENTBLOCK
 6	727	179
 6	460	179
+#Musroom 
 
-
+15	250	80
+10	250	130
+13	250	130
 
 
 #Platform

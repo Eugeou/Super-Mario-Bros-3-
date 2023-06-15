@@ -13,6 +13,10 @@
 #include "FireBall.h"
 #include "SampleKeyEventHandler.h"
 #include "VenusPlant.h"
+#include "MushRoom.h"
+#include "QuestionBrick.h"
+#include "BluePButton.h"
+#include "BrickColor.h"
 
 using namespace std;
 
@@ -130,6 +134,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_TRANSPARENTBLOCK: obj = new CTransparentBlock(x, y); break;
 	//case OBJECT_TYPE_FIREBALL: obj = new CFireBall(x, y); break;
 	case OBJECT_TYPE_VENUSPLANT: obj = new CVenusPlant(x, y); break;
+	case OBJECT_TYPE_BRICKQUESTION_ITEM: obj = new CQuestionBrick(x, y, QUESTION_BRICK_ITEM); break;
+	case OBJECT_TYPE_BRICKQUESTION_COIN: obj = new CQuestionBrick(x, y, QUESTION_BRICK_COIN); break;
+
+	case OBJECT_TYPE_BRICK_COLOR_IS_COIN: obj = new CBrickColor(x, y, BRICK_IS_COIN); break;
+	case OBJECT_TYPE_MUSHROOM: obj = new CMushRoom(x, y); break;
+
+	
+
 	case OBJECT_TYPE_PLATFORM:
 	{
 
