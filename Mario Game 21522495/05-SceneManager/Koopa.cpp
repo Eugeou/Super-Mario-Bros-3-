@@ -324,5 +324,76 @@ void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
 		this->OnCollisionWithBrickColor(e);
 }
 
+void CKoopa::SetState(int state) {
+	if (this->state == KOOPA_STATE_ISDEAD) return;
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	switch (state) {
+	case KOOPA_STATE_WALKING:
+		vx = -KOOPA_WALKING_SPEED;
+		vy = 0;
+		ay = KOOPA_GRAVITY;
+		isComeback = false;
+		isDefend = false;
+		isUpside = false;
+		isKicked = false;
+		isWing = false;
+		isHeld = false;
+		break;
+	case KOOPA_STATE_DEFEND:
+		isDefend = true;
+		isComeback = false;
+		isKicked = false;
+		isUpside = false;
+		if (isOnPlatform) vx = 0;
+		defend_start = GetTickCount64();
+		break;
+	case KOOPA_STATE_UPSIDE:
+		isUpside = true;
+		isDefend = false;
+		isComeback = false;
+		if (isWing) {
+			isWing = false;
+			ay = KOOPA_GRAVITY;
+		}
+		isKicked = false;
+		vy = -KOOPA_JUMP_IS_ATTACKED;
+		if (isOnPlatform) vx = 0;
+		defend_start = GetTickCount64();
+		break;
+	case KOOPA_STATE_IS_KICKED:
+		if (isHeld) {
+			vy = -KOOPA_KICKED_NOT_FALL;
+		}
+		isOnPlatform = true;
+		isKicked = true;
+		isHeld = false;
+		vx = PositionWithMario() * KOOPA_IS_KICKED_SPEED;
+		break;
+	case KOOPA_STATE_JUMP:
+		isUpside = false;
+		isDefend = false;
+		isComeback = false;
+		isKicked = false;
+		vx = -KOOPA_WALKING_SPEED;
+		if (isWing) {
+			ay = KOOPA_GRAVITY_WING;
+		}
+		break;
+	case KOOPA_STATE_DEAD_UPSIDE:
+		vy = -KOOPA_JUMP_DEATH;
+		ay = KOOPA_GRAVITY;
+		vx = 0;
+		isWing = false;
+		isComeback = false;
+		isDefend = false;
+		isHeld = false;
+		isKicked = false;
+		isUpside = true;
+		isDead = true;
+		die_start = GetTickCount64();
+		break;
+	}
+	CGameObject::SetState(state);
+}
 
 
