@@ -49,7 +49,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 			mario->SetState(MARIO_STATE_SIT_RELEASE);
 		break;
 	case DIK_K:
-		if (mario->GetIsHolding()) mario->SetIsHolding(false);
+		if (mario->GetIsHolding()) mario->SetIsHolding(true);
 		break;
 	}
 }
