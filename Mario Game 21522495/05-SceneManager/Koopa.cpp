@@ -83,3 +83,31 @@ int CKoopa::GetAniRed() {
 	}
 	return aniId;
 }
+
+int CKoopa::GetAniGreen() {
+	int aniId = -1;
+	if (!isWing) {
+		if (isUpside) {
+			if (isComeback) aniId = ID_ANI_GREEN_UPSIDE_COMEBACK;
+			else if (isKicked) aniId = ID_ANI_GREEN_UPSIDE_KICKED;
+			else aniId = ID_ANI_GREEN_UPSIDE;
+		}
+		else {
+			if (isDefend) {
+				if (isComeback) aniId = ID_ANI_GREEN_COMEBACK;
+				else if (isKicked) aniId = ID_ANI_GREEN_DEFEND;//ID_ANI_GREEN_KICKED;
+				else aniId = ID_ANI_GREEN_DEFEND;
+			}
+			else
+			{
+				if (vx > 0) aniId = ID_ANI_GREEN_WALK_RIGHT;
+				else aniId = ID_ANI_GREEN_WALK_LEFT;
+			}
+		}
+	}
+	else {
+		if (vx > 0) aniId = ID_ANI_GREEN_WING_RIGHT;
+		else aniId = ID_ANI_GREEN_WING_LEFT;
+	}
+	return aniId;
+}
