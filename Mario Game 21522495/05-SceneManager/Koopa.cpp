@@ -61,3 +61,25 @@ int CKoopa::PositionWithMario() {
 	else return -1;
 
 }
+
+int CKoopa::GetAniRed() {
+	int aniId;
+	if (isUpside) {
+		if (isComeback) aniId = ID_ANI_RED_UPSIDE_COMEBACK;
+		else if (isKicked) aniId = ID_ANI_RED_UPSIDE_KICKED;
+		else aniId = ID_ANI_RED_UPSIDE;
+	}
+	else {
+		if (isDefend) {
+			if (isComeback) aniId = ID_ANI_RED_COMEBACK;
+			else if (isKicked) aniId = ID_ANI_RED_DEFEND;//ID_ANI_RED_KICKED;
+			else aniId = ID_ANI_RED_DEFEND;
+		}
+		else
+		{
+			if (vx > 0) aniId = ID_ANI_RED_WALK_RIGHT;
+			else aniId = ID_ANI_RED_WALK_LEFT;
+		}
+	}
+	return aniId;
+}
