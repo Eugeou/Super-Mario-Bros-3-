@@ -25,6 +25,7 @@ mushroom.txt
 brickquestion.txt
 brickcolor.txt
 leaf.txt
+koopa.txt
 
 #
 [OBJECTS]
@@ -63,8 +64,11 @@ leaf.txt
 0	20	10
 
 #Goomba
-2	400	10
+2	250	150
 20	700	10
+
+#Koopa
+17	150	
 
 #VENUS PLANT
 8	460	165
