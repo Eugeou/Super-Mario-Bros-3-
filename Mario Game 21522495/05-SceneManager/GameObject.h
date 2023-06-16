@@ -77,6 +77,8 @@ public:
 	// Is this object collide with other object at certain direction ( like ColorBox )
 	virtual int IsDirectionColliable(float nx, float ny) { return 1; }
 
+	virtual int IsEnemy() { return 0; }
+
 	float GetX() { return x; }
 	float GetY() { return y; }
 	float GetVx() { return vx; }

@@ -288,4 +288,41 @@ void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	}
 }
 
+void CKoopa::OnCollisionWith(LPCOLLISIONEVENT e) {
+	if (!e->obj->IsBlocking() && !e->obj->IsPlatform() && !e->obj->IsPlayer() && !e->obj->IsEnemy()) return;
+	if (!dynamic_cast<CGoomba*>(e->obj) && !dynamic_cast<CMario*>(e->obj)) {
+		if (e->ny < 0)
+		{
+			if (model != KOOPA_GREEN_WING) {
+				vy = 0;
+				isOnPlatform = true;
+			}
+			else {
+				if (state == KOOPA_STATE_JUMP) {
+					vy = -KOOPA_JUMP_SPEED;
+				}
+				else vy = 0;
+			}
+		}
+		if (e->nx != 0 && e->obj->IsBlocking())
+		{
+			vx = -vx;
+		}
+	}
+
+	if (dynamic_cast<CGoomba*>(e->obj))
+		this->OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CQuestionBrick*>(e->obj))
+		this->OnCollisionWithBrickQuestion(e);
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		this->OnCollisionWithPlatform(e);
+	else if ((dynamic_cast<CKoopa*>(e->obj)))
+		this->OnCollisionWithKoopa(e);
+	else if ((dynamic_cast<CVenusPlant*>(e->obj)))
+		this->OnCollisionWithVenusPlant(e);
+	else if ((dynamic_cast<CBrickColor*>(e->obj)))
+		this->OnCollisionWithBrickColor(e);
+}
+
+
 
