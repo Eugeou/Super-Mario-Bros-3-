@@ -111,11 +111,16 @@ class CMario : public CGameObject
 
 	int level; 
 	int untouchable; 
+
 	ULONGLONG untouchable_start;
+	ULONGLONG start_kick;
+	ULONGLONG start_holding;
+
 	BOOLEAN isOnPlatform;
 	bool isLower;
 	bool isHolding;
 	bool isKicking;
+	bool isRunning;
 	int coin; 
 	int score;
 
@@ -127,6 +132,7 @@ class CMario : public CGameObject
 	void OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushRoom(LPCOLLISIONEVENT e);
 	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
 
 
 	int GetAniIdBig();
@@ -141,6 +147,7 @@ public:
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
 		isLower = false;
+		isRunning = false;
 		level = MARIO_LEVEL_SMALL;
 		untouchable = 0;
 		untouchable_start = -1;
@@ -180,6 +187,8 @@ public:
 	//void AddScore(float xTemp, float yTemp, int scoreAdd);
 	void SetCoin(int coin) { this->coin = coin; }
 	void SetScore(int l) { score = l; }
+	void SetLevelLower();
+
 	
 
 

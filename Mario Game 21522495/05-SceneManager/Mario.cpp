@@ -16,6 +16,7 @@
 #include "MushRoom.h"
 #include "BrickColor.h"
 #include "Leaf.h"
+#include "Koopa.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -71,6 +72,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithLeaf(e);
 	else if (dynamic_cast<CQuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
+	else if (dynamic_cast<CKoopa*>(e->obj))
+		OnCollisionWithKoopa(e);
+
 	
 	
 }
@@ -241,6 +245,69 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
 	}
 
 }
+
+void CMario::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
+	
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
+	if (e->ny < 0) 
+	{
+		koopa->SetVy(-KOOPA_ADJUST_KICKED_NOT_FALL);
+		if (koopa->GetModel() != KOOPA_GREEN_WING) {
+			if ((koopa->GetState() == KOOPA_STATE_WALKING) or (koopa->GetState() == KOOPA_STATE_IS_KICKED))
+			{
+				koopa->SetState(KOOPA_STATE_DEFEND);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else {
+				koopa->SetState(KOOPA_STATE_IS_KICKED);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+		}
+		else
+		{
+			if (koopa->GetState() == KOOPA_STATE_JUMP) {
+				koopa->SetState(KOOPA_STATE_WALKING);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else if ((koopa->GetState() == KOOPA_STATE_WALKING) or (koopa->GetState() == KOOPA_STATE_IS_KICKED))
+			{
+				koopa->SetVy(KOOPA_ADJUST_KICKED_NOT_FALL);
+				koopa->SetState(KOOPA_STATE_DEFEND);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else {
+				koopa->SetState(KOOPA_STATE_IS_KICKED);
+			}
+
+		}
+	}
+	else if (e->nx != 0)
+	{
+		if (untouchable == 0)
+		{
+			if ((koopa->GetState() != KOOPA_STATE_JUMP) && (koopa->GetState() != KOOPA_STATE_ISDEAD) && (koopa->GetState() != KOOPA_STATE_WALKING) and (koopa->GetState() != KOOPA_STATE_IS_KICKED))
+			{
+				if (!isRunning)
+				{
+					koopa->SetIsHeld(false);
+					isKicking = true;
+					start_kick = GetTickCount64();
+
+					koopa->SetState(KOOPA_STATE_IS_KICKED);
+				}
+				else {
+					isHolding = true;
+					koopa->SetIsHeld(true);
+					start_holding = GetTickCount64();
+				}
+			}
+			else {
+				SetLevelLower();
+			}
+		}
+	}
+}
+
 
 
 void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
@@ -533,6 +600,28 @@ void CMario::SetLevel(int l)
 	}
 	level = l;
 }
+
+void CMario::SetLevelLower() {
+	isLower = true;
+
+	if (level > MARIO_LEVEL_SMALL)
+	{
+		StartUntouchable();
+		if (level == MARIO_LEVEL_BIG) {
+
+			SetLevel(MARIO_LEVEL_SMALL);
+		}
+		else 
+		{
+			SetLevel(MARIO_LEVEL_BIG);
+		}
+	}
+	else
+	{
+		SetState(MARIO_STATE_DIE);
+	}
+}
+
 
 float CMario::GetPosition()
 {
