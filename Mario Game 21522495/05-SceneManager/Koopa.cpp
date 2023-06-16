@@ -39,3 +39,25 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 	isUpside = false;
 	isDead = false;
 }
+
+void CKoopa::Render() {
+	int aniId;
+	if (model == KOOPA_RED) {
+		aniId = GetAniRed();
+	}
+	else aniId = GetAniGreen();
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
+	//RenderBoundingBox();
+}
+
+void CKoopa::OnNoCollision(DWORD dt) {
+	x += vx * dt;
+	y += vy * dt;
+}
+
+int CKoopa::PositionWithMario() {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetX() < GetX()) return 1;
+	else return -1;
+
+}
