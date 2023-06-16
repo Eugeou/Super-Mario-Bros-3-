@@ -111,3 +111,19 @@ int CKoopa::GetAniGreen() {
 	}
 	return aniId;
 }
+
+void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom) {
+	if ((state == KOOPA_STATE_ISDEAD) || (state == KOOPA_STATE_DEAD_UPSIDE)) return;
+	if (isDefend || isUpside) {
+		left = x - KOOPA_BBOX_WIDTH / 2;
+		top = y - KOOPA_BBOX_HEIGHT_DEFEND / 2;
+		right = left + KOOPA_BBOX_WIDTH;
+		bottom = top + KOOPA_BBOX_HEIGHT_DEFEND;
+	}
+	else {
+		left = x - KOOPA_BBOX_WIDTH / 2;
+		top = y - KOOPA_BBOX_HEIGHT / 2;
+		right = left + KOOPA_BBOX_WIDTH;
+		bottom = top + KOOPA_BBOX_HEIGHT;
+	}
+}
