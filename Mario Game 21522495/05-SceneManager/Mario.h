@@ -169,7 +169,13 @@ public:
 	float GetY();
 	int GetLevel() { return level; }
 	int GetCoin() { return this->coin; }
+	int GetScore() { return score; }
+
 	//set functions
 	//void AddScore(float xTemp, float yTemp, int scoreAdd);
 	void SetCoin(int coin) { this->coin = coin; }
+	void SetScore(int l) { score = l; }
+	
+
+
 };
