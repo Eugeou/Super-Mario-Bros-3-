@@ -64,6 +64,7 @@ leaf.txt
 
 #Goomba
 2	400	10
+20	700	10
 
 #VENUS PLANT
 8	460	165
@@ -78,8 +79,8 @@ leaf.txt
 #TRANSPARENTBLOCK
 6	735	200
 6	460	179
-#Musroom 
 
+#Musroom 
 15	250	80
 
 #QUESTION BRICK COIN AND MUSHROOM
