@@ -18,6 +18,7 @@
 #include "BluePButton.h"
 #include "BrickColor.h"
 #include "Leaf.h"
+#include "Koopa.h"
 
 using namespace std;
 
@@ -141,8 +142,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK_COLOR_IS_COIN: obj = new CBrickColor(x, y, BRICK_IS_COIN); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushRoom(x, y); break;
 	case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;
-
-	
+	case OBJECT_TYPE_KOOPA_GREEN: obj = new CKoopa(x, y, KOOPA_GREEN); break;
+	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
+	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{
