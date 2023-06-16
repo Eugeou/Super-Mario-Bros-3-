@@ -69,6 +69,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushRoom(e);
 	else if (dynamic_cast<CLeaf*>(e->obj))
 		OnCollisionWithLeaf(e);
+	else if (dynamic_cast<CQuestionBrick*>(e->obj))
+		OnCollisionWithQuestionBrick(e);
 	
 	
 }
@@ -193,6 +195,49 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
 	}
 	else SetLevel(MARIO_LEVEL_BIG);
 }
+
+void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e) {
+	CQuestionBrick* questionBrick = dynamic_cast<CQuestionBrick*>(e->obj);
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	BOOLEAN isUnbox, isEmpty;
+	isUnbox = questionBrick->GetIsUnbox();
+	isEmpty = questionBrick->GetIsEmpty();
+	if (e->ny < 0) BlockIfNoBlock(questionBrick);
+	else if (((e->ny > 0) || (e->nx != 0)) && !isUnbox && !isEmpty) {
+		float xTemp, yTemp, minY;
+		xTemp = questionBrick->GetX();
+		yTemp = questionBrick->GetY();
+		minY = questionBrick->GetMinY();
+
+		questionBrick->SetState(QUESTION_BRICK_STATE_UP);
+
+		if (questionBrick->GetModel() == QUESTION_BRICK_ITEM) {
+			if (GetLevel() == MARIO_LEVEL_SMALL) {
+				CMushRoom* mushroom = new CMushRoom(xTemp, yTemp);
+				scene->AddObject(mushroom);
+			}
+			else if (GetLevel() >= MARIO_LEVEL_BIG) {
+				CLeaf* leaf = new CLeaf(xTemp, yTemp);
+				scene->AddObject(leaf);
+			}
+			questionBrick->SetIsEmpty(true);
+		}
+		else if (questionBrick->GetModel() == QUESTION_BRICK_COIN) {
+			SetCoin(GetCoin() + 1);
+			CCoin* coin = new CCoin(xTemp, yTemp);
+			coin->SetState(COIN_SUMMON_STATE);
+			questionBrick->SetIsEmpty(true);
+			scene->AddObject(coin);
+		}
+		else {
+			CBluePButton* button = new CBluePButton(xTemp, yTemp);
+			scene->AddObject(button);
+			questionBrick->SetIsEmpty(true);
+		}
+	}
+
+}
+
 
 void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
 	if (level == MARIO_LEVEL_SMALL) {

@@ -122,7 +122,7 @@ class CMario : public CGameObject
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
 	void OnCollisionWithFireBall(LPCOLLISIONEVENT e);
 	void OnCollisionWithVenusPlant(LPCOLLISIONEVENT e);
-	//void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
+	void OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushRoom(LPCOLLISIONEVENT e);
 	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
 
@@ -168,6 +168,8 @@ public:
 	float GetX();
 	float GetY();
 	int GetLevel() { return level; }
+	int GetCoin() { return this->coin; }
 	//set functions
 	//void AddScore(float xTemp, float yTemp, int scoreAdd);
+	void SetCoin(int coin) { this->coin = coin; }
 };
