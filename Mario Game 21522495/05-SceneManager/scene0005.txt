@@ -26,6 +26,7 @@ brickquestion.txt
 brickcolor.txt
 leaf.txt
 koopa.txt
+pipe.txt
 
 #
 [OBJECTS]
@@ -84,12 +85,10 @@ koopa.txt
 
 
 #Koopa
-19	680	140
+17	680	140
 
-#VENUS PLANT
-8	460	165
-#PIPE
-5	460	163	30	49	1	111000	112000	113000
+
+22	460	163
 #COIN
 
 4	1180	120

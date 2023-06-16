@@ -5,6 +5,8 @@
 /*
 	Object that triggers scene switching
 */
+
+
 class CPortal : public CGameObject
 {
 	int scene_id;	// target scene to switch to 

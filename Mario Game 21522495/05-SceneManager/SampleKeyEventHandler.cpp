@@ -48,7 +48,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		if (!mario->GetIsHolding())
 			mario->SetState(MARIO_STATE_SIT_RELEASE);
 		break;
-	case DIK_A:
+	case DIK_K:
 		if (mario->GetIsHolding()) mario->SetIsHolding(false);
 		break;
 	}
