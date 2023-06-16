@@ -65,10 +65,10 @@ koopa.txt
 
 #Goomba
 2	250	150
-20	700	10
+20	900	150
 
 #Koopa
-17	150	
+17	680	140	
 
 #VENUS PLANT
 8	460	165
