@@ -216,6 +216,7 @@ public:
 		isSitting = false;
 		isHolding = false;
 		isChanging = false;
+		isKicking = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
@@ -261,6 +262,8 @@ public:
 	void SetCoin(int coin) { this->coin = coin; }
 	void SetScore(int l) { score = l; }
 	void SetLevelLower();
+	void SetIsHolding(bool b) { isHolding = b; }
+	void SetIsKicking(bool b) { isKicking = b; }
 
 	
 
