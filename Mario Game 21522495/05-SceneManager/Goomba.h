@@ -1,13 +1,13 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "AssetIDs.h"
 #include "debug.h"
 
 #define GOOMBA_GRAVITY 0.0005f
 
-#define GOOMBA_FLY_ADJUST 0.08f
+#define GOOMBA_FLY_ADJUST 0.08f //điều chỉnh tốc độ di chuyển của Goomba trong quá trình bay
 #define GOOMBA_WALKING_SPEED 0.03f
-#define GOOMBA_JUMP_DEFLECT_SPEED 0.2f
+#define GOOMBA_JUMP_DEFLECT_SPEED 0.2f //Tốc dộ phản ứng của fly goomba khi nhảy lên
 
 
 #define TIME_WALKING 2000
@@ -38,7 +38,7 @@
 
 
 
-#define GOOMBA_BASE 1
+#define GOOMBA_BASIC 1
 #define GOOMBA_WING 2
 
 class CGoomba : public CGameObject
@@ -73,8 +73,8 @@ protected:
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
-	int GetAniGoompaBase();
-	int GetAniGoompaWing();
+	int GetAniGoomBaBasic();
+	int GetAniGoomBaWing();
 public:
 	CGoomba(float x, float y, int model);
 
