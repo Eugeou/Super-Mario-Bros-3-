@@ -15,6 +15,7 @@
 #include "QuestionBrick.h"
 #include "MushRoom.h"
 #include "BrickColor.h"
+#include "Leaf.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -66,6 +67,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithVenusPlant(e);
 	else if (dynamic_cast<CMushRoom*>(e->obj))
 		OnCollisionWithMushRoom(e);
+	else if (dynamic_cast<CLeaf*>(e->obj))
+		OnCollisionWithLeaf(e);
+	
+	
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -177,7 +182,17 @@ void CMario::OnCollisionWithMushRoom(LPCOLLISIONEVENT e)
 
 }
 
-
+void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e) {
+	e->obj->Delete();
+	score += 1000;
+	if (level == MARIO_LEVEL_TAIL) {
+	}
+	else if (level != MARIO_LEVEL_SMALL)
+	{
+		SetLevel(MARIO_LEVEL_TAIL);
+	}
+	else SetLevel(MARIO_LEVEL_BIG);
+}
 
 void CMario::BlockIfNoBlock(LPGAMEOBJECT gameobject) {
 	if (level == MARIO_LEVEL_SMALL) {

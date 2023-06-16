@@ -87,6 +87,7 @@
 
 #define	MARIO_LEVEL_SMALL	1
 #define	MARIO_LEVEL_BIG		2
+#define MARIO_LEVEL_TAIL	3
 
 #define MARIO_BIG_BBOX_WIDTH  14
 #define MARIO_BIG_BBOX_HEIGHT 24
@@ -123,6 +124,8 @@ class CMario : public CGameObject
 	void OnCollisionWithVenusPlant(LPCOLLISIONEVENT e);
 	//void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
 	void OnCollisionWithMushRoom(LPCOLLISIONEVENT e);
+	void OnCollisionWithLeaf(LPCOLLISIONEVENT e);
+
 
 	int GetAniIdBig();
 	int GetAniIdSmall();

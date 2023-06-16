@@ -17,6 +17,7 @@
 #include "QuestionBrick.h"
 #include "BluePButton.h"
 #include "BrickColor.h"
+#include "Leaf.h"
 
 using namespace std;
 
@@ -139,6 +140,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_BRICK_COLOR_IS_COIN: obj = new CBrickColor(x, y, BRICK_IS_COIN); break;
 	case OBJECT_TYPE_MUSHROOM: obj = new CMushRoom(x, y); break;
+	case OBJECT_TYPE_LEAF: obj = new CLeaf(x, y); break;
 
 	
 
