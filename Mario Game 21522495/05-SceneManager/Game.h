@@ -18,6 +18,8 @@ using namespace std;
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
+#define SCREEN_WIDTH 272
+#define SCREEN_HEIGHT 256
 
 
 
@@ -116,7 +118,8 @@ public:
 
 	void _ParseSection_TEXTURES(string line);
 
-
+	float GetCamX() { return cam_x; }
+	float GetCamY() { return cam_y; }
 
 	~CGame();
 };

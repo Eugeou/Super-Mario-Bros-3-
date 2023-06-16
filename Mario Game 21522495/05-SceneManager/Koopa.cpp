@@ -43,7 +43,8 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 }
 
 void CKoopa::Render() {
-	int aniId;
+	
+	if (!checkObjectInCamera(this)) return; int aniId;
 	if (model == KOOPA_RED) {
 		aniId = GetAniRed();
 	}
@@ -132,6 +133,7 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (!checkObjectInCamera(this)) return;
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 	vy += ay * dt;
 	vx += ax * dt;

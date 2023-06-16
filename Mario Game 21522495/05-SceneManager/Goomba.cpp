@@ -81,6 +81,7 @@ void CGoomba::OnCollisionWithPlatForm(LPCOLLISIONEVENT e)
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (!checkObjectInCamera(this)) return;
 	if (mario->GetState() == MARIO_STATE_DIE) return;
 	vy += ay * dt;
 	vx += ax * dt;
@@ -189,7 +190,7 @@ int CGoomba::GetAniGoomBaBasic() {
 
 void CGoomba::Render()
 {
-
+	if (!checkObjectInCamera(this)) return;
 	int aniId = -1;
 	if (model == GOOMBA_WING) {
 		aniId = GetAniGoomBaWing();

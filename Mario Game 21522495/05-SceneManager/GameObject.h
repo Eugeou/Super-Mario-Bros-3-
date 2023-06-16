@@ -85,6 +85,7 @@ public:
 	float GetVy() { return vy; }
 	int GetNx() { return this->nx; }
 
+
 	void SetY(float f) { y = f; }
 	void SetX(float f) { x = f; }
 	void SetVy(float f) { vy = f; }
@@ -94,6 +95,7 @@ public:
 		isDeleted = b;
 	}
 
+	bool checkObjectInCamera(CGameObject* obj);
 	~CGameObject();
 
 	static bool IsDeleted(const LPGAMEOBJECT& o) { return o->isDeleted; }
