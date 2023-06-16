@@ -177,3 +177,37 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
+
+void CKoopa::OnCollisionWithBrickColor(LPCOLLISIONEVENT e) {
+	CBrickColor* brick = dynamic_cast<CBrickColor*>(e->obj);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	if ((isKicked) && (e->nx != 0)) {
+		mario->SetScore(mario->GetScore() + 100);
+		brick->SetState(BRICK_STATE_DELETE);
+	}
+}
+void CKoopa::OnCollisionWithVenusPlant(LPCOLLISIONEVENT e) {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	CVenusPlant* plant = dynamic_cast<CVenusPlant*>(e->obj);
+	if (isKicked)
+	{
+		plant->SetState(VENUSPLANT_STATE_DIE);
+	}
+}
+void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	CKoopa* koopa = dynamic_cast<CKoopa*>(e->obj);
+	if (isHeld) {
+		SetState(KOOPA_STATE_DEAD_UPSIDE);
+		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
+	}
+	else if (isKicked) 
+	{
+		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
+	}
+}
+
+
