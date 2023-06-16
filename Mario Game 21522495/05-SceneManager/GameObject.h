@@ -79,8 +79,14 @@ public:
 
 	float GetX() { return x; }
 	float GetY() { return y; }
+	float GetVx() { return vx; }
+	float GetVy() { return vy; }
+	int GetNx() { return this->nx; }
+
 	void SetY(float f) { y = f; }
 	void SetX(float f) { x = f; }
+	void SetVy(float f) { vy = f; }
+	void SetVx(float f) { vx = f; }
 
 	void SetIsDeleted(bool b) {
 		isDeleted = b;

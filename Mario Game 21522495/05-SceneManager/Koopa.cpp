@@ -127,3 +127,53 @@ void CKoopa::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		bottom = top + KOOPA_BBOX_HEIGHT;
 	}
 }
+
+void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetState() == MARIO_STATE_DIE) return;
+	vy += ay * dt;
+	vx += ax * dt;
+
+	if (mario->GetIsHolding() && isHeld) {
+		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
+		this->y = mario->GetY() - 3;
+
+		vx = mario->GetVx();
+		vy = mario->GetVy();
+	}
+	else {
+		if (this->isHeld) {
+			ay = KOOPA_GRAVITY;
+			SetState(KOOPA_STATE_IS_KICKED);
+		}
+	}
+
+	if (isDead && isUpside) {
+		if (GetTickCount64() - die_start > KOOPA_DIE_TIME)
+		{
+			isDeleted = true;
+			return;
+		}
+	}
+	if (!isDead) {
+		if (!isKicked) {
+			if (GetTickCount64() - defend_start > KOOPA_COMBACK_START && (isDefend || isUpside) && !isKicked) {
+				isComeback = true;
+			}
+			if ((GetTickCount64() - defend_start > KOOPA_DEFEND_TIMEOUT && (isDefend || isUpside) && !isKicked)) {
+				if (isComeback) {
+					SetState(KOOPA_STATE_WALKING);
+					vy = -KOOPA_ADJUST_NOT_FALL;
+					defend_start = -1;
+				}
+			}
+		}
+		else { isComeback = false; }
+	}
+	if (state == KOOPA_STATE_UPSIDE && !isOnPlatform) {
+		vx = -KOOPA_WALKING_SPEED;
+	}
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+}

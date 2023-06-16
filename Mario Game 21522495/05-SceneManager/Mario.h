@@ -114,6 +114,8 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	BOOLEAN isOnPlatform;
 	bool isLower;
+	bool isHolding;
+	bool isKicking;
 	int coin; 
 	int score;
 
@@ -134,6 +136,7 @@ public:
 	CMario(float x, float y) : CGameObject(x, y)
 	{
 		isSitting = false;
+		isHolding = false;
 		maxVx = 0.0f;
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
@@ -170,6 +173,8 @@ public:
 	int GetLevel() { return level; }
 	int GetCoin() { return this->coin; }
 	int GetScore() { return score; }
+	bool GetIsHolding() { return isHolding; }
+	bool GetIsKicking() { return isKicking; }
 
 	//set functions
 	//void AddScore(float xTemp, float yTemp, int scoreAdd);
