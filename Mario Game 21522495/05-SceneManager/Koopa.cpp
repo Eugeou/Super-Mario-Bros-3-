@@ -10,10 +10,12 @@
 #include "VenusPlant.h"
 #include "BrickColor.h"
 #include "QuestionBrick.h"
+#include "BluePButton.h"
 #include "MushRoom.h"
 #include "Leaf.h"
 #include "Coin.h"
 #include "PlayScene.h"
+
 
 CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 {
@@ -207,6 +209,82 @@ void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {
 	else if (isKicked) 
 	{
 		koopa->SetState(KOOPA_STATE_DEAD_UPSIDE);
+	}
+}
+
+void CKoopa::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
+	CQuestionBrick* questionBrick = dynamic_cast<CQuestionBrick*>(e->obj);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	if (e->nx != 0) {
+		if (isKicked) {
+			if (!questionBrick->GetIsEmpty() || !questionBrick->GetIsUnbox()) {
+				if (questionBrick->GetModel() == QUESTION_BRICK_ITEM) {
+					if (mario->GetLevel() == MARIO_LEVEL_SMALL) {
+						CMushRoom* mushroom = new CMushRoom(questionBrick->GetX(), questionBrick->GetY());
+						scene->AddObject(mushroom);
+					}
+					else if (mario->GetLevel() >= MARIO_LEVEL_BIG) {
+						CLeaf* leaf = new CLeaf(questionBrick->GetX(), questionBrick->GetY());
+						scene->AddObject(leaf);
+					}
+				}
+				else if (questionBrick->GetModel() == QUESTION_BRICK_COIN) {
+					mario->SetCoin(mario->GetCoin() + 1);
+					CCoin* coin = new CCoin(questionBrick->GetX(), questionBrick->GetY());
+					coin->SetState(COIN_SUMMON_STATE);
+					scene->AddObject(coin);
+				}
+				else {
+					CBluePButton* button = new CBluePButton(questionBrick->GetX(), questionBrick->GetY());
+					scene->AddObject(button);
+				}
+				questionBrick->SetIsEmpty(true);
+				questionBrick->SetIsUnbox(true);
+			}
+		}
+	}
+}
+void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
+
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+	if (isKicked) {
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		goomba->SetState(GOOMBA_STATE_DIE);
+	}
+
+}
+void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
+	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
+	if (e->ny < 0) {
+		if (!platform->isCanNotBlockKoopa()) {
+			isOnPlatform = true;
+			if (!isDefend && !isUpside) {
+				SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);
+			}
+			else
+			{
+				SetY(platform->GetY() - KOOPA_BBOX_HEIGHT / 2 - 3);
+			}
+			if ((model == KOOPA_GREEN_WING) && (state == KOOPA_STATE_JUMP)) {
+				vy = -KOOPA_JUMP_SPEED;
+			}
+		}
+	}
+	if ((model == KOOPA_RED) && (state == KOOPA_STATE_WALKING))
+	{
+		if (platform->GetX() - KOOPA_BBOX_WIDTH / 2 > GetX()) {
+			SetX(platform->GetX() - KOOPA_BBOX_WIDTH / 2);
+			vx = -vx;
+		}
+		if ((GetX() > (platform->GetX() + (platform->GetLength() - 0.5) * KOOPA_BBOX_WIDTH))) {
+			SetX(platform->GetX() + (float(platform->GetLength() - 0.5)) * KOOPA_BBOX_WIDTH);
+			vx = -vx;
+		}
+
+
 	}
 }
 
