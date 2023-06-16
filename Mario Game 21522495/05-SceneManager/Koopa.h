@@ -13,7 +13,7 @@
 #define KOOPA_JUMP_SPEED 0.2f
 #define KOOPA_JUMP_IS_ATTACKED 0.4f
 
-#define KOOPA_DEFEND_TIMEOUT 8000 // hết thời gian defend ( ra khỏi mai rùa và bắt đầu đi)
+#define KOOPA_DEFEND_TIMEOUT 8000 // hết thời gian defend ( ra khỏi mai rùa và bắt đầu di chuyển)
 #define KOOPA_COMBACK_START 6000 //thời gian tính từ lúc defend đến lúc có hiệu ứng comeback
 
 #define KOOPA_DIE_TIME 10000
@@ -33,9 +33,21 @@
 #define ID_ANI_RED_UPSIDE_KICKED 6107
 #define ID_ANI_RED_UPSIDE_COMEBACK 6108
 
+//Green
+#define ID_ANI_GREEN_WALK_RIGHT 6001
+#define ID_ANI_GREEN_WALK_LEFT 6002
+#define ID_ANI_GREEN_DEFEND 6003
+#define ID_ANI_GREEN_KICKED 6004
+#define ID_ANI_GREEN_UPSIDE 6005
+#define ID_ANI_GREEN_COMEBACK 6006
+#define ID_ANI_GREEN_UPSIDE_KICKED 6007
+#define ID_ANI_GREEN_UPSIDE_COMEBACK 6008
+#define ID_ANI_GREEN_WING_RIGHT 6009
+#define ID_ANI_GREEN_WING_LEFT 6010
 
+#define KOOPA_GREEN 1
 #define KOOPA_RED 2
-
+#define KOOPA_GREEN_WING 3
 
 #define KOOPA_STATE_WALKING 100
 #define KOOPA_STATE_DEFEND 200
@@ -66,5 +78,43 @@ protected:
 	virtual int IsEnemy() { return 1; }
 	virtual void OnNoCollision(DWORD dt);
 
+
+	int GetAniGreen();
+	int GetAniRed();
+	void OnCollisionWithBrickColor(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlantEnemy(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopa(LPCOLLISIONEVENT e);
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+
+	bool isUpside;
+	bool isDefend;
+	bool isHeld;
+	bool isKicked;
+	bool isWing;
+	bool isOnPlatform;
+	bool isComeback;
 	bool isDead;
+public:
+	CKoopa(float x, float y, int model);
+
+
+	//get
+	bool GetIsUpside() { return isUpside; }
+	bool GetIsDefend() { return isDefend; }
+	bool GetIsHeld() { return isHeld; }
+	bool GetIsKicked() { return isKicked; }
+	bool GetIsWing() { return isWing; }
+	bool GetIsComeBack() { return isComeback; }
+
+
+	//set
+	virtual void SetState(int state);
+	void SetIsHeld(bool b) { isHeld = b; }
+	void SetModel(int model) { this->model = model; }
+	int GetModel() { return model; }
+
+
 };
