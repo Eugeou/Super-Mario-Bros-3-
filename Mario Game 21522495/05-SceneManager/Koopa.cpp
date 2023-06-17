@@ -24,6 +24,7 @@ CKoopa::CKoopa(float x, float y, int model) :CGameObject(x, y)
 	this->model = model;
 	defend_start = -1;
 	isHeld = false;
+	ckoopablock = new CKoopaBlock(x, y);
 	if (model == KOOPA_GREEN_WING) {
 		isWing = true;
 		SetState(KOOPA_STATE_JUMP);
@@ -135,9 +136,22 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (!checkObjectInCamera(this)) return;
 	if (mario->GetState() == MARIO_STATE_DIE) return;
+
 	vy += ay * dt;
 	vx += ax * dt;
 
+	if (state == KOOPA_STATE_WALKING)
+	{
+		float Mx, My;
+		if (vx > 0)
+			ckoopablock->SetPosition(this->x + KOOPA_BBOX_WIDTH, this->y - KOOPA_BBOX_HEIGHT);
+		else
+			ckoopablock->SetPosition(this->x - KOOPA_BBOX_WIDTH, this->y - KOOPA_BBOX_HEIGHT);
+		ckoopablock->Update(dt, coObjects);
+		ckoopablock->GetPosition(Mx, My);
+		if (My >= this->y + 1)
+			vx = -vx;
+	}
 	if (mario->GetIsHolding() && isHeld) {
 		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
 		this->y = mario->GetY() - 3;

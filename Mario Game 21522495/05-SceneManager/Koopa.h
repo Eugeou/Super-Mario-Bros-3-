@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include"GameObject.h"
+#include "KoopaBlock.h"
 
 #define KOOPA_GRAVITY 0.001f
 #define KOOPA_WALKING_SPEED 0.04f
@@ -97,6 +98,8 @@ protected:
 	bool isOnPlatform;
 	bool isComeback;
 	bool isDead;
+
+	CKoopaBlock* ckoopablock;
 public:
 	CKoopa(float x, float y, int model);
 
