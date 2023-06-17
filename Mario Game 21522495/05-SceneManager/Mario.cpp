@@ -100,8 +100,11 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 			{
 				if (level > MARIO_LEVEL_SMALL)
 				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
+					if (level == MARIO_LEVEL_TAIL)
+						level = MARIO_LEVEL_BIG;
+					else
+						level = MARIO_LEVEL_SMALL;
+						StartUntouchable();
 				}
 				else
 				{
@@ -140,8 +143,11 @@ void CMario::OnCollisionWithFireBall(LPCOLLISIONEVENT e) {
 	{
 		if (level > MARIO_LEVEL_SMALL)
 		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
+			if (level == MARIO_LEVEL_TAIL)
+				level = MARIO_LEVEL_BIG;
+			else
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
 		}
 		else
 		{
@@ -162,8 +168,11 @@ void CMario::OnCollisionWithVenusPlant(LPCOLLISIONEVENT e) {
 		{
 			if (level > MARIO_LEVEL_SMALL)
 			{
-				level = MARIO_LEVEL_SMALL;
-				StartUntouchable();
+				if (level == MARIO_LEVEL_TAIL)
+					level = MARIO_LEVEL_BIG;
+				else
+					level = MARIO_LEVEL_SMALL;
+					StartUntouchable();
 			}
 			else
 			{
@@ -688,7 +697,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (level==MARIO_LEVEL_BIG)
+	if (level==MARIO_LEVEL_BIG || level == MARIO_LEVEL_TAIL)
 	{
 		if (isSitting)
 		{
@@ -734,7 +743,7 @@ void CMario::SetLevelLower() {
 
 			SetLevel(MARIO_LEVEL_SMALL);
 		}
-		else 
+		else if (level == MARIO_LEVEL_TAIL)
 		{
 			SetLevel(MARIO_LEVEL_BIG);
 		}

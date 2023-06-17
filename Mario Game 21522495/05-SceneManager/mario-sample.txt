@@ -28,4 +28,4 @@ height	240
 110	textures\misc_left.png
 120	textures\misc_right.png
 130	textures\enemies_upside.png
-140	textures\Stage 1-1.png
+
