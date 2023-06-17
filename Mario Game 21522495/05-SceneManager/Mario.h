@@ -171,6 +171,7 @@
 
 
 #define MARIO_UNTOUCHABLE_TIME 2500
+#define TIME_MAX_HOLDING 6000
 
 class CMario : public CGameObject
 {
@@ -264,6 +265,7 @@ public:
 	void SetLevelLower();
 	void SetIsHolding(bool b) { isHolding = b; }
 	void SetIsKicking(bool b) { isKicking = b; }
+	void AdjustHoldingKoopa();
 
 	
 

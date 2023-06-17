@@ -65,7 +65,7 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 		if (game->IsKeyDown(DIK_A))
 		{
 			mario->SetState(MARIO_STATE_RUNNING_RIGHT);
-			//mario->SetIsHolding(true);
+			mario->SetIsHolding(true);
 		}
 		
 		else

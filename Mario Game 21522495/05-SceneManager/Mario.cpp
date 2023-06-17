@@ -32,9 +32,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable = 0;
 	}
 
+	if (isHolding) AdjustHoldingKoopa();
 	isOnPlatform = false;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
+void CMario::AdjustHoldingKoopa() {
+	if (GetTickCount64() - start_holding > TIME_MAX_HOLDING) {
+		isHolding = false;
+		start_holding = 0;
+	}
 }
 
 void CMario::OnNoCollision(DWORD dt)
