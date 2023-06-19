@@ -18,9 +18,10 @@ class CPipe : public CGameObject
 {
 protected:
 	int model;
+	int typePlant;
 
 public:
-	CPipe(float x, float y, int model);
+	CPipe(float x, float y, int model, int typeFlower);
 
 	void Render();
 	void Update(DWORD dt) {}
@@ -31,5 +32,4 @@ public:
 	void SetModel(int model) { this->model = model; }
 	int GetModel() { return model; }
 };
-
 

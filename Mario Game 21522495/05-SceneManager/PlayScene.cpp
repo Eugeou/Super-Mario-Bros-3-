@@ -153,9 +153,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_KOOPA_GREEN_FLY: obj = new CKoopa(x, y, KOOPA_GREEN_WING); break;
 	case OBJECT_TYPE_KOOPA_RED: obj = new CKoopa(x, y, KOOPA_RED); break;
 
-	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL); break;
-	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL); break;
-	case OBJECT_TYPE_PIPE_LONG_GREEN: obj = new CPipe(x, y, PIPE_LONG_MODEL); break;
+	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL, VENUSPLANT_NOT_SHOOT); break;
+	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL, VENUSPLANT_SHOOT_RED); break;
+	case OBJECT_TYPE_PIPE_LONG_GREEN: obj = new CPipe(x, y, PIPE_LONG_MODEL, VENUSPLANT_SHOOT_GREEN); break;
 
 	case OBJECT_TYPE_PLATFORM:
 	{

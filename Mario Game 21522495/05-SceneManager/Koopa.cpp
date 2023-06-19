@@ -211,7 +211,7 @@ void CKoopa::OnCollisionWithVenusPlant(LPCOLLISIONEVENT e) {
 	CVenusPlant* plant = dynamic_cast<CVenusPlant*>(e->obj);
 	if (isKicked)
 	{
-		plant->SetState(VENUSPLANT_STATE_DIE);
+		plant->SetState(VENUSPLANT_STATE_DEATH);
 	}
 }
 void CKoopa::OnCollisionWithKoopa(LPCOLLISIONEVENT e) {

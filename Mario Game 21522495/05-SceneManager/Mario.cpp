@@ -172,7 +172,7 @@ void CMario::OnCollisionWithVenusPlant(LPCOLLISIONEVENT e) {
 
 	else if (untouchable == 0)
 	{
-		if (plant->GetState() != VENUSPLANT_STATE_DIE)
+		if (plant->GetState() != VENUSPLANT_STATE_DEATH)
 		{
 			if (level > MARIO_LEVEL_SMALL)
 			{
