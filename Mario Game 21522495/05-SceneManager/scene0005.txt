@@ -29,6 +29,7 @@ koopa.txt
 pipe.txt
 hud.txt
 effect.txt
+door.txt
 
 #
 [OBJECTS]

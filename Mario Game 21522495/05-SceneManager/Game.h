@@ -8,21 +8,32 @@ using namespace std;
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-
+#include"DataGame.h"
 #include "Texture.h"
 #include "KeyEventHandler.h"
 #include "Scene.h"
 
 
-
+#define SCREEN_WIDTH 272
+#define SCREEN_HEIGHT 256
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
-#define SCREEN_WIDTH 272
-#define SCREEN_HEIGHT 256
+#define TYPE_WORLD_UNKNOWN 0
+#define TYPE_WORLD_INTRO 1
+#define TYPE_WORLD_MAP 2
+#define TYPE_WORLD_PLAY 3
+#define FULL_WEIGHT_1_1 2816
+#define ADJUST_CAM_MIN_Y 224
+#define ADJUST_CAM_MAX_Y 256
+#define ADJUST_CAM_HIDDEN_MAP 0
+#define HIDDEN_POSITION_X 3000
 
 
-
+#define ID_SCENE_INTRO 1
+#define ID_SCENE_WORLD_MAP 2
+#define ID_SCENE_WORLD_1_1 3
+#define ID_SCENE_WORLD_MAP_RESET 100
 /*
 	Our simple game framework
 */
@@ -59,15 +70,19 @@ class CGame
 	unordered_map<int, LPSCENE> scenes;
 	int current_scene;
 	int next_scene = -1;
-	
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
-	
+
+	int screen_height;
+	int screen_width;
+	CDataGame* dataGame = new CDataGame();
 public:
+	float GetCamX() { return cam_x; }
+	float GetCamY() { return cam_y; }
 	// Init DirectX, Sprite Handler
 	void Init(HWND hWnd, HINSTANCE hInstance);
-
+	CDataGame* GetDataGame() { return dataGame; }
 	//
 	// Draw a portion or ALL the texture at position (x,y) on the screen. (x,y) is at the CENTER of the image
 	// rect : if NULL, the whole texture will be drawn
@@ -111,6 +126,7 @@ public:
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
 
+
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void Load(LPCWSTR gameFile);
 	void SwitchScene();
@@ -118,8 +134,9 @@ public:
 
 	void _ParseSection_TEXTURES(string line);
 
-	float GetCamX() { return cam_x; }
-	float GetCamY() { return cam_y; }
+	int GetScreenWidth() { return screen_width; }
+	int GetScreenHeight() { return screen_height; }
+
 
 	~CGame();
 };

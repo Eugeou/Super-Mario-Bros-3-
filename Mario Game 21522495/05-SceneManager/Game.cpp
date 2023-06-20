@@ -3,13 +3,14 @@
 #include "Game.h"
 #include "debug.h"
 #include "Utils.h"
-
+#include "Scene.h"
 #include "Texture.h"
+#include "IntroScene.h"
 #include "Animations.h"
 #include "PlayScene.h"
+#include "WorldMapScene.h"
 
-
-CGame * CGame::__instance = NULL;
+CGame* CGame::__instance = NULL;
 
 /*
 	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
@@ -20,7 +21,6 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 {
 	this->hWnd = hWnd;
 	this->hInstance = hInstance;
-	
 
 	// retrieve client area width & height so that we can create backbuffer height & width accordingly 
 	RECT r;
@@ -29,6 +29,9 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	backBufferWidth = r.right + 1;
 	backBufferHeight = r.bottom + 1;
 
+	screen_height = r.bottom + 1;
+	screen_width = FULL_WEIGHT_1_1;
+	// r.right+1;
 	DebugOut(L"[INFO] Window's client area: width= %d, height= %d\n", r.right - 1, r.bottom - 1);
 
 	// Create & clear the DXGI_SWAP_CHAIN_DESC structure
@@ -50,7 +53,7 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 
 	// Create the D3D device and the swap chain
 	HRESULT hr = D3D10CreateDeviceAndSwapChain(NULL,
-		D3D10_DRIVER_TYPE_HARDWARE,
+		D3D10_DRIVER_TYPE_REFERENCE,
 		NULL,
 		0,
 		D3D10_SDK_VERSION,
@@ -100,7 +103,7 @@ void CGame::Init(HWND hWnd, HINSTANCE hInstance)
 	//
 	//
 
-	D3D10_SAMPLER_DESC desc; 
+	D3D10_SAMPLER_DESC desc;
 	desc.Filter = D3D10_FILTER_MIN_MAG_POINT_MIP_LINEAR;
 	desc.AddressU = D3D10_TEXTURE_ADDRESS_CLAMP;
 	desc.AddressV = D3D10_TEXTURE_ADDRESS_CLAMP;
@@ -191,8 +194,8 @@ void CGame::Draw(float x, float y, LPTEXTURE tex, RECT* rect, float alpha, int s
 		sprite.TexSize.x = 1.0f;
 		sprite.TexSize.y = 1.0f;
 
-		if (spriteWidth==0) spriteWidth = tex->getWidth();
-		if (spriteHeight==0) spriteHeight = tex->getHeight();
+		if (spriteWidth == 0) spriteWidth = tex->getWidth();
+		if (spriteHeight == 0) spriteHeight = tex->getHeight();
 	}
 	else
 	{
@@ -251,7 +254,7 @@ LPTEXTURE CGame::LoadTexture(LPCWSTR texturePath)
 		return NULL;
 	}
 
-	D3DX10_IMAGE_LOAD_INFO info; 
+	D3DX10_IMAGE_LOAD_INFO info;
 	ZeroMemory(&info, sizeof(D3DX10_IMAGE_LOAD_INFO));
 	info.Width = imageInfo.Width;
 	info.Height = imageInfo.Height;
@@ -454,13 +457,26 @@ void CGame::_ParseSection_SETTINGS(string line)
 void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
-
 	if (tokens.size() < 2) return;
+	LPSCENE scene;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
-
-	LPSCENE scene = new CPlayScene(id, path);
-	scenes[id] = scene;
+	int type = atoi(tokens[2].c_str());
+	DebugOut(L"TYPE CUA CAI VUA LOAD %d\n", type);
+	switch (type) {
+	case TYPE_WORLD_PLAY:
+		scene = new CPlayScene(id, path);
+		scenes[id] = scene;
+		break;
+	case TYPE_WORLD_MAP:
+		scene = new CWorldMapScene(id, path);
+		scenes[id] = scene;
+		break;
+	case TYPE_WORLD_INTRO:
+		scene = new CIntroScene(id, path);
+		scenes[id] = scene;
+		break;
+	}
 }
 
 /*
@@ -486,11 +502,11 @@ void CGame::Load(LPCWSTR gameFile)
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[TEXTURES]") { section = GAME_FILE_SECTION_TEXTURES; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
-		if (line[0] == '[') 
-		{ 
-			section = GAME_FILE_SECTION_UNKNOWN; 
+		if (line[0] == '[')
+		{
+			section = GAME_FILE_SECTION_UNKNOWN;
 			DebugOut(L"[ERROR] Unknown section: %s\n", ToLPCWSTR(line));
-			continue; 
+			continue;
 		}
 
 		//
@@ -512,10 +528,9 @@ void CGame::Load(LPCWSTR gameFile)
 
 void CGame::SwitchScene()
 {
-	if (next_scene < 0 || next_scene == current_scene) return; 
+	if (next_scene < 0 || next_scene == current_scene) return;
 
-	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
-
+	DebugOut(L"[INFO] Switching to scene %d %d\n", current_scene, next_scene);
 	scenes[current_scene]->Unload();
 
 	CSprites::GetInstance()->Clear();
@@ -560,5 +575,4 @@ CGame* CGame::GetInstance()
 	if (__instance == NULL) __instance = new CGame();
 	return __instance;
 }
-
 
