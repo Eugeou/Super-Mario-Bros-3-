@@ -2,6 +2,7 @@
 #include"HUD.h"
 #include"Game.h"
 #include"PlayScene.h"
+
 void CEffect::Render() {
 	if (!checkObjectInCamera(this)) return;
 

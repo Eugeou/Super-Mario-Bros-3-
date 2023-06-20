@@ -29,6 +29,9 @@ height	240
 120	textures\misc_right.png
 130	textures\enemies_upside.png
 140	textures\hud_source.png
-150	
+150	textures\effect.png
+160	textures\card.png
+170	textures\worldmapObj.png
 180	textures\gameover.png
 190	textures\dialogs.png
+300	textures\marioWorldMap.png
