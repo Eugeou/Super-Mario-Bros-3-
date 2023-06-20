@@ -62,24 +62,9 @@ CMario::CMario(float x, float y) : CGameObject(x, y) {
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//DebugOutTitle(L"Up %d", Up);
+	
 	DebugOutTitle(L"score %d", score);
-	//DebugOutTitle(L"State %d", state);
-	//DebugOutTitle(L"TIME %d", clock);
-	//DebugOutTitle(L"POWERUP %d", levelRun);
-	//DebugOutTitle(L"[POSITION] %f %f", x, y);
-	//DebugOutTitle(L"[Vx Vy] %f %f", vx, vy);
-	//DebugOutTitle(L"[IsSitting] %d", isSitting);
-	//DebugOutTitle(L"[startUsePiPe] %f ", startUsePiPeY);
-	//DebugOutTitle(L"[ay] %f ", ay);
-	//DebugOutTitle(L"[isDowned isUpped isUsePipe] %d   %d    %d", isDowned,isUpped,isUsePipe);
-	//DebugOutTitle(L"[isHolding] %d  \n", isHolding);
-	//DebugOutTitle(L"[CARD 1 2 3] %d %d %d \n", card1,card2,card3);
-	//DebugOutTitle(L"start change scene %d", start_change_scene);
-	//DebugOutTitle(L"isClockVeryFast isNotMove %d %d", isClockVeryFast, isNotMove);
-	//DebugOutTitle(L"test isNotMove isWillAddEffect %d %d %d", testDebug,isNotMove,isWillAddEffect);
-	//DebugOutTitle(L"cardCollected %d", cardCollected);
-
+	
 	//Trong luc animation thay doi level mario se dung yen
 	if (isChanging) {
 		vx = 0;
@@ -282,7 +267,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPlatForm(e);
 	else if (dynamic_cast<CVenusPlant*>(e->obj))
 		OnCollisionWithVenusPlant(e);
-	else if (dynamic_cast<CFireFBall*>(e->obj))
+	else if (dynamic_cast<CFireBall*>(e->obj))
 		OnCollisionWithFireBall(e);
 	else if (dynamic_cast<CCard*>(e->obj))
 		OnCollisionWithCard(e);
