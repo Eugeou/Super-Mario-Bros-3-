@@ -4,6 +4,7 @@
 #include "Sprites.h"
 #include"PlayScene.h"
 #include "Mario.h"
+
 CHUD::CHUD(float x, float y) {
 	this->x = x;
 	this->y = y;
