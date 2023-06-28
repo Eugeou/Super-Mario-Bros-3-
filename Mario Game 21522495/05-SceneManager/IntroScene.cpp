@@ -111,7 +111,7 @@ void CIntroScene::_ParseSection_OBJECTS(string line) {
 	}
 	case OBJECT_TYPE_PLATFORM_INTRO: obj = new CPlatformIntro(x, y); break;
 	case OBJECT_TYPE_MARIO: obj = new CMario(x, y); break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, GOOMBA_BASE); break;
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, GOOMBA_BASIC); break;
 	case OBJECT_TYPE_FONT_INTRO: obj = new CFontIntro(x, y); break;
 	case OBJECT_TYPE_PLATFORM:
 	{
