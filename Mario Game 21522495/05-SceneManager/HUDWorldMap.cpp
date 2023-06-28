@@ -3,6 +3,7 @@
 #include "Game.h"
 #include"debug.h"
 #include"Animations.h"
+
 CHUDWorldMap::CHUDWorldMap(float x, float y) {
 	this->x = x;
 	this->y = y;
@@ -29,9 +30,6 @@ void CHUDWorldMap::Render() {
 	DrawNumber((score / 10) % 10, x + POSITION_SCORE_X + DISTANCE_NUMBER * 5, y - ADJUST_Y_POWER_POSITION_UNDER);
 	DrawNumber(score % 10, x + POSITION_SCORE_X + DISTANCE_NUMBER * 6, y - ADJUST_Y_POWER_POSITION_UNDER);
 
-
-
-
 	//WRITE CARD
 	int card1 = data->GetCard1();
 	int card2 = data->GetCard2();
@@ -40,11 +38,6 @@ void CHUDWorldMap::Render() {
 	if (card1) DrawCard(card1, x + X_CARD_POSITION, y + Y_CARD_POSITION);
 	if (card2) DrawCard(card2, x + X_CARD_POSITION + CARD_WIDTH, y + Y_CARD_POSITION);
 	if (card3) DrawCard(card3, x + X_CARD_POSITION + CARD_WIDTH * 2, y + Y_CARD_POSITION);
-
-	//DebugOutTitle(L"[CARD 1 2 3 hjhj] %d %d %d \n", card1, card2, card3);
-
-
-
 
 	// WRITE UP
 	int up = data->GetUp();
@@ -64,7 +57,6 @@ void CHUDWorldMap::Render() {
 
 	if (data->GetIsOver()) DrawGameOver();
 	if (data->GetIsDisplayHUD()) DrawDisPlayHudSub();
-	//DebugOutTitle(L"%d %d %d %d %d %d", data->GetIsOver(), data->GetIsPrepareContinue(), data->GetIsPrepareEnd(), data->GetIsContinue(), data->GetIsEnd(), data->GetIsDisplayHUD());
 }
 
 
@@ -86,7 +78,6 @@ void CHUDWorldMap::DrawCard(int n, float xTemp, float yTemp) {
 	if (n == HUD_CARD_MUSHROOM) CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_MUSHROOM)->Render(xTemp, yTemp);
 	else if (n == HUD_CARD_FLOWER) CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_FLOWER)->Render(xTemp, yTemp);
 	else if (n == HUD_CARD_STAR) CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_STAR)->Render(xTemp, yTemp);
-	//else CAnimations::GetInstance()->Get(ID_ANI_HUD_CARD_MUSHROOM)->Render(xTemp, yTemp);
 }
 
 void CHUDWorldMap::DrawGameOver() {

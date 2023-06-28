@@ -164,7 +164,10 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
+    <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Hammer.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="HUDWorldMap.cpp" />
     <ClCompile Include="IntroArrow.cpp" />
     <ClCompile Include="IntroBackGround.cpp" />
     <ClCompile Include="IntroKey.cpp" />
@@ -176,6 +179,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MushRoom.cpp" />
+    <ClCompile Include="OtherObject.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="PlatformIntro.cpp" />
@@ -211,6 +215,9 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="Grass.h" />
+    <ClInclude Include="Hammer.h" />
+    <ClInclude Include="HUDWorldMap.h" />
     <ClInclude Include="IntroArrow.h" />
     <ClInclude Include="IntroBackGround.h" />
     <ClInclude Include="IntroKey.h" />
@@ -223,6 +230,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MushRoom.h" />
+    <ClInclude Include="OtherObject.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="PlatformIntro.h" />
