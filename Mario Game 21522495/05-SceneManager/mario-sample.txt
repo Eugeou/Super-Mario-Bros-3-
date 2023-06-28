@@ -35,3 +35,5 @@ height	240
 180	textures\gameover.png
 190	textures\dialogs.png
 300	textures\marioWorldMap.png
+310	textures\title.png
+

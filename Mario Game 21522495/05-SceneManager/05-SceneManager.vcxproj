@@ -160,6 +160,7 @@
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FireBall.cpp" />
+    <ClCompile Include="FontIntro.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Door.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="FireBall.h" />
+    <ClInclude Include="FontIntro.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
