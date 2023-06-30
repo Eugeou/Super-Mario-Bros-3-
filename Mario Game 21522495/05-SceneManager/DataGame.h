@@ -95,11 +95,6 @@ public:
 	bool GetIsContinue() { return isContinue; }
 	bool GetIsDisplayHUD() { return isDisplayHUD; }
 
-
-
-
-
-
 	void ResetFullData();
 	void ChangeBetweenPrepareContinueAndEnd();
 };

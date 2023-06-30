@@ -1,6 +1,6 @@
 #include "DataGame.h"
 #include "Mario.h"
-#include"Door.h"
+#include "Door.h"
 
 
 CDataGame::CDataGame() {
