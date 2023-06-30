@@ -27,21 +27,13 @@ void CPlatform::RenderBoundingBox()
 
 	CGame::GetInstance()->Draw(xx - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
 }
-
-int CPlatform::IsDirectionColliable(float nx, float ny)
-{
-	if (nx == 0 && ny == -1) return 1;
-	else return 0;
-	
-}
-
-
-
 void CPlatform::Render()
 {
-	if (this->length <= 0) return; 
-	float xx = x; 
-	CSprites * s = CSprites::GetInstance();
+	if (!checkObjectInCamera(this)) return;
+
+	if (this->length <= 0) return;
+	float xx = x;
+	CSprites* s = CSprites::GetInstance();
 
 	s->Get(this->spriteIdBegin)->Draw(xx, y);
 	xx += this->cellWidth;
@@ -50,7 +42,7 @@ void CPlatform::Render()
 		s->Get(this->spriteIdMiddle)->Draw(xx, y);
 		xx += this->cellWidth;
 	}
-	if (length>1)
+	if (length > 1)
 		s->Get(this->spriteIdEnd)->Draw(xx, y);
 
 	//RenderBoundingBox();
