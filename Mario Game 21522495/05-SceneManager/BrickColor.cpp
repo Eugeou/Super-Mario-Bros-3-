@@ -33,10 +33,10 @@ void CBrickColor::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 		}
 	}
 	else {
-		CButton* button = NULL;
+		CBluePButton* button = NULL;
 		for (size_t i = 0; i < scene->GetListObject().size(); i++) {
 			if (scene->GetListObject()[i]->IsButton() == 1) {
-				button = dynamic_cast<CButton*>(scene->GetListObject()[i]);
+				button = dynamic_cast<CBluePButton*>(scene->GetListObject()[i]);
 				if (button->GetIsCollected()) isUseButton = true;
 				button = NULL;
 				break;

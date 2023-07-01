@@ -2,6 +2,7 @@
 mario.txt
 effect.txt
 platform.txt
+platform-world1.txt
 grass.txt
 door.txt
 platform.txt

@@ -16,7 +16,7 @@
 #include "Goomba.h"
 #include "Scene.h"
 #include "debug.h"
-#include "Utils.cpp"
+
 
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
