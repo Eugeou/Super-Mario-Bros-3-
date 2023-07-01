@@ -1,92 +1,76 @@
 #include "FireBall.h"
 #include "Mario.h"
 #include "PlayScene.h"
+#include "Animation.h"
 #include "VenusPlant.h"
+#include "Pipe.h"
+#include "Map.h"
 
-
-
-CFireBall::CFireBall(float x, float y, bool Up, bool Right) :CGameObject(x, y)
+CFireBall::CFireBall(float bx, float by, bool Up, bool Right)
 {
-
-	this->ax = 0;
-	this->ay = 0;
-	//start = -1;
-	SetState(FIREBALL_STATE_FYING);
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
 	if (Up)
 	{
-		y = y - VENUSPLANT_BBOX_HEIGHT/2 ;
-		vy = -BULLET_SPEED_Y;
+		y = by - VENUSPLANT_BBOX_HEIGHT / 2;
+		vy = -BULLET_SPEED_Y_PLANT;
 	}
 	else
 	{
-		y = y + VENUSPLANT_BBOX_HEIGHT/2 ;
-		vy = BULLET_SPEED_Y;
+		y = by + VENUSPLANT_BBOX_HEIGHT / 2;
+		vy = BULLET_SPEED_Y_PLANT;
 	}
+
+
 	if (Right)
 	{
-		x = x + VENUSPLANT_BBOX_WIDTH;
-		vx = BULLET_SPEED_X;
+		x = bx + VENUSPLANT_BBOX_WIDTH;
+		vx = BULLET_SPEED_X_PLANT;
 	}
 	else
 	{
-		x = x - VENUSPLANT_BBOX_WIDTH;
-		vx = -BULLET_SPEED_X;
+		x = bx - VENUSPLANT_BBOX_WIDTH;
+		vx = -BULLET_SPEED_X_PLANT;
 	}
-	start_del = GetTickCount64();
-
+	start_deleted = GetTickCount64();
 }
-
-void CFireBall::GetBoundingBox(float& left, float& top, float& right, float& bottom)
-{
-	left = x;
-	top = y;
-	right = left + FIREBALL_BBOX_WIDTH;
-	bottom = top + FIREBALL_BBOX_HEIGHT;
-	
-}
-
-void CFireBall::OnNoCollision(DWORD dt)
-{
-	x += vx * dt;
-	y += vy * dt;
-};
-
-void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CFireBall*>(e->obj)) return;
-
-}
-
 void CFireBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (mario->GetState() == MARIO_STATE_DIE) return;
-	if (GetTickCount64() - start_del > TIME_FIREBALL_DELETE) {
+	if (mario->GetIsChanging() || mario->GetState() == MARIO_STATE_DIE) return;
+	if (GetTickCount64() - start_deleted > TIME_BULLET_DELETE) {
 		isDeleted = true;
 	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
-
-
 void CFireBall::Render()
 {
-	int aniId = ID_ANI_FIREBALL_FLYING;
+	if (!checkObjectInCamera(this)) return;
 
-	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	CAnimations* animations = CAnimations::GetInstance();
+
+	int aniId = 0;
+	if (vx > 0)
+		aniId = ID_ANI_BULLET_RIGHT;
+	else
+		aniId = ID_ANI_BULLET_LEFT;
+	animations->Get(aniId)->Render(x, y);
+	//RenderBoundingBox();
+}
+void CFireBall::GetBoundingBox(float& l, float& t, float& r, float& b)
+{
+	l = x;
+	t = y;
+	r = x + BULLET_BBOX_WIDTH_PLANT;
+	b = y + BULLET_BBOX_HEIGHT_PLANT;
 }
 
-void CFireBall::SetState(int state)
-{
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case FIREBALL_STATE_FYING:
-		vx = BULLET_SPEED_X;
-		break;
-	}
+void CFireBall::OnCollisionWith(LPCOLLISIONEVENT e) {
+	if (dynamic_cast<CPipe*>(e->obj)) return;
+	if (e->obj->IsPlatform() && e->obj->IsBlocking()) isDeleted = true;
+
 }

@@ -34,6 +34,10 @@ height	240
 170	textures\worldmapObj.png
 180	textures\gameover.png
 190	textures\dialogs.png
+200	world1-1_bank.png
+205	world1_bank.png
+210	world1-1-1_bank.png
+220	textures\enemies_4.png
 300	textures\marioWorldMap.png
 310	textures\title.png
 
