@@ -566,6 +566,19 @@ void CMario::OnCollisionWithBrickQuestion(LPCOLLISIONEVENT e) {
 			scene->AddObject(mushroom);
 			questionBrick->SetIsEmpty(true);
 		}
+		else if (questionBrick->GetModel() == QUESTION_BRICK_FLOWERFIRE)
+		{
+			if (GetLevel() == MARIO_LEVEL_SMALL) {
+				CMushRoom* mushroom = new CMushRoom(xTemp, yTemp);
+				scene->AddObject(mushroom);
+			}
+			else if (GetLevel() >= MARIO_LEVEL_BIG) {
+				CFlowerFire* flower = new CFlowerFire(xTemp, yTemp);
+				scene->AddObject(flower);
+			}
+			questionBrick->SetIsEmpty(true);
+		
+		}
 		else {
 			CBluePButton* button = new CBluePButton(xTemp, yTemp);
 			scene->AddObject(button);

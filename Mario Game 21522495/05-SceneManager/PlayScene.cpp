@@ -197,6 +197,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_FLOWERFIRE: obj = new CFlowerFire(x, y); break;
 	case OBJECT_TYPE_BRICKQUESTION_COIN: obj = new CQuestionBrick(x, y, QUESTION_BRICK_COIN); break;
 	case OBJECT_TYPE_BRICKQUESTION_ITEM: obj = new CQuestionBrick(x, y, QUESTION_BRICK_ITEM); break;
+	case OBJECT_TYPE_BRICKQUESTION_FLOWERFIRE: obj = new CQuestionBrick(x, y, QUESTION_BRICK_FLOWERFIRE); break;
 	case OBJECT_TYPE_PIPE_SHORT: obj = new CPipe(x, y, PIPE_SHORT_MODEL, VENUSPLANT_NOT_SHOOT); break;
 	case OBJECT_TYPE_PIPE_LONG: obj = new CPipe(x, y, PIPE_LONG_MODEL, VENUSPLANT_SHOOT_RED); break;
 	case OBJECT_TYPE_PIPE_LONG_GREEN: obj = new CPipe(x, y, PIPE_LONG_MODEL, VENUSPLANT_SHOOT_GREEN); break;
