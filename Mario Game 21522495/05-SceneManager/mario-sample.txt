@@ -1,43 +1,46 @@
 [SETTINGS]
-start	5
-width	320
-height	240
+start	1
+#width	320
+#height	240
 
 #id	type	file
-# type: 0: intro, 1: play scene 
+# type: 0: intro, 1: play scene
 [SCENES]
-0	intro.txt	1
-1	intro.txt	1
-2	worldmap.txt	2
-3	scene0005.txt	3
+0	Resource\WorldMap\worldmap.txt	2
+1	Resource\Intro\intro.txt	1
+2	Resource\WorldMap\worldmap.txt	2
+3	Resource\World1-1\world1-1.txt	3
 
+#FORRESET
+100	Resource\WorldMap\worldmap.txt	2
 # id	file 
 [TEXTURES]
 -100	textures\bbox.png
 0	textures\mario.png
 10	textures\enemies.png
+15	textures\enemies_2.png
 20	textures\misc.png
-30	textures\tileset.png
-40	textures\masks.png
-50	textures\map.png
-60	textures\smb3s.png
-70	textures\map1-1.png
-80	textures\fire-balls.png
-90	textures\allsprites.png
-100	textures\enemies_3.png
-110	textures\misc_left.png
-120	textures\misc_right.png
-130	textures\enemies_upside.png
+25	textures\mario-left.png
+30	textures\mario-right.png
+40	textures\enemies_3.png
+50	textures\enemies_4.png
+70	textures\Demo.png
+90	textures\misc_left.png
+100	textures\misc_right.png
+110	textures\effect.png
+120	textures\HUD.png
+130	textures\Font.png
 140	textures\hud_source.png
-150	textures\effect.png
+150	textures\worldmapObj.png
 160	textures\card.png
-170	textures\worldmapObj.png
+170	textures\reward_x3.png
 180	textures\gameover.png
 190	textures\dialogs.png
-200	world1-1_bank.png
-205	world1_bank.png
-210	world1-1-1_bank.png
-220	textures\enemies_4.png
+
+200	Resource\Tilemap\world1-1_bank.png
+205	Resource\Tilemap\world1_bank.png
+210	Resource\Tilemap\world1-1-1_bank.png
 300	textures\marioWorldMap.png
+
 310	textures\title.png
 

@@ -1,26 +1,26 @@
 # list of object assets to load in this scene
 [ASSETS]
-card.txt
-mario.txt
-brick.txt
-coin.txt
-goomba.txt
-cloud.txt
-mushroom.txt
-leaf.txt
-flowerfire.txt
-brickquestion.txt
-platform-world1.txt
-pipe.txt
-koopa.txt
-fireball.txt
-hud.txt
-effect.txt
-bluepbutton.txt
+Resource\World1-1\card.txt
+Resource\World1-1\mario.txt
+Resource\World1-1\brick.txt
+Resource\World1-1\coin.txt
+Resource\World1-1\goomba.txt
+Resource\World1-1\cloud.txt
+Resource\World1-1\mushroom.txt
+Resource\World1-1\leaf.txt
+Resource\World1-1\flowerfire.txt
+Resource\World1-1\brickquestion.txt
+Resource\World1-1\platform.txt
+Resource\World1-1\pipe.txt
+Resource\World1-1\koopa.txt
+Resource\World1-1\bulletplant.txt
+Resource\World1-1\hud.txt
+Resource\World1-1\effect.txt
+Resource\World1-1\button.txt
 [TILEMAP]
-world1-1.txt
+Resource\Tilemap\world1-1.txt
 [HIDDENMAP]
-world1-1-1.txt
+Resource\Tilemap\world1-1-1.txt
 [OBJECTS]
 #define OBJECT_TYPE_MARIO	0
 #define OBJECT_TYPE_BRICK	1

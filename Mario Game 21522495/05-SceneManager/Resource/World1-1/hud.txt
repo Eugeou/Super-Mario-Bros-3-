@@ -1,7 +1,7 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
 ##SPRITE NULL
-2	40	32	56	48	100
+2	40	32	56	48	40
 11700	3	3	234	30	140
 11701	1124	462	1500	510	70
 #POWER

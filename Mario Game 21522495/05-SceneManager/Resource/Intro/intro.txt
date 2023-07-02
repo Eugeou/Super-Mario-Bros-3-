@@ -1,0 +1,35 @@
+[ASSETS]
+Resource\Intro\font.txt
+Resource\Intro\platform.txt
+Resource\Intro\background.txt
+Resource\World1-1\card.txt
+Resource\World1-1\mario.txt
+Resource\World1-1\brick.txt
+Resource\World1-1\coin.txt
+Resource\World1-1\goomba.txt
+Resource\World1-1\cloud.txt
+Resource\World1-1\mushroom.txt
+Resource\World1-1\leaf.txt
+Resource\World1-1\flowerfire.txt
+Resource\World1-1\brickquestion.txt
+Resource\World1-1\platform.txt
+Resource\World1-1\pipe.txt
+Resource\World1-1\koopa.txt
+Resource\World1-1\bulletplant.txt
+Resource\World1-1\hud.txt
+Resource\World1-1\effect.txt
+Resource\World1-1\button.txt
+
+[OBJECTS]
+#PLATFORM MAIN
+1020	120	196
+#PLATFORM BLOCK
+40	-64	192	16	16	30	2	2	2
+
+#BACKGROUND
+
+1021	120	86
+
+#font
+1012	112	0
+

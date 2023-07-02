@@ -62,6 +62,8 @@ void CQuestionBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CQuestionBrick::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	int aniId;
 	if (model == QUESTION_BRICK_MUSHROOM_GREEN || model == QUESTION_BRICK_BUTTON) {
 		aniId = ID_ANI_BRICK_COLOR;
