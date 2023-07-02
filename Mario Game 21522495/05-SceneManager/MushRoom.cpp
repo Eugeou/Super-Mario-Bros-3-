@@ -28,7 +28,8 @@ CMushRoom::CMushRoom(float x, float y, int model) :CGameObject(x, y)
 }
 
 void CMushRoom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
-	
+	if (!checkObjectInCamera(this)) return;
+
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (state == MUSHROOM_STATE_WALKING) {
 		vy += ay * dt;

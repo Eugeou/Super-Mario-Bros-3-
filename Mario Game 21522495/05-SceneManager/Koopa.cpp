@@ -48,19 +48,6 @@ void CKoopa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if (state == KOOPA_STATE_WALKING)
-	{
-		float Mx, My;
-		if (vx > 0)
-			ckoopablock->SetPosition(this->x + KOOPA_BBOX_WIDTH, this->y - KOOPA_BBOX_HEIGHT);
-		else
-			ckoopablock->SetPosition(this->x - KOOPA_BBOX_WIDTH, this->y - KOOPA_BBOX_HEIGHT);
-		ckoopablock->Update(dt, coObjects);
-		ckoopablock->GetPosition(Mx, My);
-		if (My >= this->y + 1)
-			vx = -vx;
-	}
-
 	if (mario->GetIsHolding() && isHeld) {
 		this->x = mario->GetX() + mario->GetNx() * (MARIO_BIG_BBOX_WIDTH - 3);
 		this->y = mario->GetY() - 3;
@@ -311,7 +298,8 @@ void CKoopa::OnCollisionWithGoomba(LPCOLLISIONEVENT e) {
 void CKoopa::OnCollisionWithPlatform(LPCOLLISIONEVENT e) {
 	CPlatform* platform = dynamic_cast<CPlatform*>(e->obj);
 	if (e->ny < 0) {
-		if (!platform->isCanNotBlockKoopa()) {
+		if (!platform->isCanNotBlockKoopa())
+		{
 			isOnPlatform = true;
 			if (!isDefend && !isUpside) {
 				SetY(platform->GetY() - KOOPA_BBOX_HEIGHT + 4);

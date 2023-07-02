@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "GameObject.h"
 
 #define QUESTION_BRICK_BBOX_WIDTH 16

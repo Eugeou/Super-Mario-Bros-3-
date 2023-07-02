@@ -23,12 +23,13 @@ void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-
+	if (!checkObjectInCamera(this)) return;
 	if (!canCollect) vy += ay * dt;
 
 	//DebugOut(L"[VANTOC] %f\n", vy);
 	if (vy > COIN_MAX_SPEED_FALL) {
 		if (!isDeleted) {
+			mario->AddScore(x, y, 100);
 			mario->SetScore(mario->GetScore() + 100);
 		}
 		Delete();
